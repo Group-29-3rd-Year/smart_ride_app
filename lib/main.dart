@@ -35,7 +35,7 @@ class Home extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "Good Morning Janith,",
+                    "Smart Ride",
                           style: Theme.of(context)
                               .textTheme
                               .headline4
