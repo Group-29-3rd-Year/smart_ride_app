@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
     
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Smart Ride',
+      title: 'Smart Ride Test',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
