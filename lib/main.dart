@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Smart Ride Test',
+      title: 'Smart Ridemy one',
       theme: ThemeData(
         fontFamily: "Cairo",
         scaffoldBackgroundColor: SGreyBackColor,
