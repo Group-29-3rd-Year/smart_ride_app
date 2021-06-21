@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_ride_app/constraints.dart';
+import 'package:smart_ride_app/screens/start_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
     
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Smart Ridemy one',
+      title: 'Smart Ride Original',
       theme: ThemeData(
         fontFamily: "Cairo",
         scaffoldBackgroundColor: SGreyBackColor,
@@ -114,7 +115,14 @@ class Home extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context, 
+                              MaterialPageRoute(
+                                builder: (context) {return StartScreen();}
+                              )
+                            );
+                          },
                           child: const Text('Sign In'),
                         ),
                       ),
