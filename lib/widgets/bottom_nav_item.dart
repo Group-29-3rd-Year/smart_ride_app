@@ -16,7 +16,7 @@ class BottomNavItem extends StatelessWidget {
     return GestureDetector(
       onTap: press,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column (
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
@@ -36,8 +36,8 @@ class BottomNavItem extends StatelessWidget {
               ),
 
             ]
+          ),
       ),
-        ),
     );
   }
 }
