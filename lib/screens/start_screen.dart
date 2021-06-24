@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:smart_ride_app/screens/available_bus_map_screen.dart';
+import 'package:smart_ride_app/screens/fare_rates_screen.dart';
+import 'package:smart_ride_app/screens/past_travel_screen.dart';
 import 'package:smart_ride_app/widgets/bottom_nav_item.dart';
 
 class StartScreen extends StatelessWidget {
@@ -92,19 +95,40 @@ class StartScreen extends StatelessWidget {
               BottomNavItem(
                 title: "Past Travels",
                 botIcon: Icons.history,
-                press: () {},
+                press: () {
+                  Navigator.push(
+                    context, 
+                    MaterialPageRoute(
+                      builder: (context) {return PastTravels();}
+                    )
+                  );
+                },
               ),
               
               BottomNavItem(
-                title: "Available",
+                title: "Available Busses",
                 botIcon: Icons.directions_bus,
-                press: () {},
+                press: () {
+                  Navigator.push(
+                    context, 
+                    MaterialPageRoute(
+                      builder: (context) {return AvailableBusMap();}
+                    )
+                  );
+                },
               ),
               
               BottomNavItem(
                 title: "Fare Rates",
                 botIcon: Icons.corporate_fare,
-                press: () {},
+                press: () {
+                  Navigator.push(
+                    context, 
+                    MaterialPageRoute(
+                      builder: (context) {return FareRates();}
+                    )
+                  );
+                },
               ),
             ]
             
