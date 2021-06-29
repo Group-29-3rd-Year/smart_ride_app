@@ -57,8 +57,13 @@ class StartScreen extends StatelessWidget {
                           
                         ),
                         child: TextButton(
+                          
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 40),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              side: BorderSide(color: Colors.blue)
+                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 40),
                             primary: Colors.white,
                             textStyle: const TextStyle(
                               fontSize: 30,
