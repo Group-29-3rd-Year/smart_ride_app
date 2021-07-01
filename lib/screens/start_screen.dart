@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smart_ride_app/components/rounded_button.dart';
+import 'package:smart_ride_app/constants.dart';
 import 'package:smart_ride_app/screens/available_bus_map_screen.dart';
 import 'package:smart_ride_app/screens/fare_rates_screen.dart';
 import 'package:smart_ride_app/screens/past_travel_screen.dart';
@@ -29,7 +31,7 @@ class StartScreen extends StatelessWidget {
                                       .textTheme
                                       .headline6
                                       .copyWith(
-                                          fontWeight: FontWeight.w900,
+                                          fontWeight: FontWeight.bold,
                                           fontSize: 40,
                                       ),
                         ),
@@ -42,7 +44,7 @@ class StartScreen extends StatelessWidget {
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 alignment: Alignment.bottomLeft,
-                                image: AssetImage("assets/images/busNew.png"),
+                                image: AssetImage("assets/images/image.png"),
                                 fit: BoxFit.fill,
                               )
                             ),
@@ -51,28 +53,36 @@ class StartScreen extends StatelessWidget {
                   Container( //start button
                         margin: EdgeInsets.only(top: 5),
                         //padding: EdgeInsets.only(top: 0, bottom: 0, left: 30, right: 30),
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(20),
+                        // decoration: BoxDecoration(
+                        //   color: Colors.blue,
+                        //   borderRadius: BorderRadius.circular(20),
                           
-                        ),
-                        child: TextButton(
+                        // ),
+
+                        // child: TextButton(
                           
-                          style: TextButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                              side: BorderSide(color: Colors.blue)
-                            ),
-                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 40),
-                            primary: Colors.white,
-                            textStyle: const TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          onPressed: () {},
-                          child: const Text('Start Ride'),
+                        //   style: TextButton.styleFrom(
+                        //     shape: RoundedRectangleBorder(
+                        //       borderRadius: BorderRadius.circular(20),
+                        //       side: BorderSide(color: Colors.blue)
+                        //     ),
+                        //     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 40),
+                        //     primary: Colors.white,
+                        //     textStyle: const TextStyle(
+                        //       fontSize: 30,
+                        //       fontWeight: FontWeight.bold,
+                        //     ),
+                        //   ),
+                        //   onPressed: () {},
+                        //   child: const Text('Start Ride'),
+                        // ),
+
+                        child: RoundedButton(
+                          text: "START RIDE",
+                          color: kPrimaryColor,
+                          press: () {},
                         ),
+
                   ),
 
                 ],
@@ -88,7 +98,8 @@ class StartScreen extends StatelessWidget {
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30),
             ),
-            color: Colors.white,
+            
+            color: KLightNavBarColor,
           ),
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           height: 65,
