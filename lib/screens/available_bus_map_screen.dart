@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:smart_ride_app/constraints.dart';
+import 'package:smart_ride_app/constants.dart';
 import 'package:smart_ride_app/screens/fare_rates_screen.dart';
 import 'package:smart_ride_app/screens/past_travel_screen.dart';
 import 'package:smart_ride_app/screens/start_screen.dart';
@@ -21,6 +21,22 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
   GoogleMapController _controller;
   Location _location = Location();
 
+  // Set<Marker> _markers = {};
+  // BitmapDescriptor mapMarker;
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   setCustomMarker();
+  // }
+
+  // void setCustomMarker() async {
+  //   mapMarker = await BitmapDescriptor.fromAssetImage(
+  //     ImageConfiguration(), 
+  //     'assets/images/location_blue.png'
+  //   );
+  // }
+
   void _onMapCreated(GoogleMapController _cntlr)
   {
     _controller = _cntlr;
@@ -30,7 +46,21 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
           CameraPosition(target: LatLng(l.latitude, l.longitude),zoom: 15),
           ),
       );
+
+      // setState(() {
+      //   _markers.add(
+      //     Marker(
+      //       markerId: MarkerId('id-1'),
+      //       icon: mapMarker,
+      //       position: LatLng(l.latitude, l.longitude),
+      //       infoWindow: InfoWindow(
+      //         title: 'My Location',
+      //       )
+      //     ),
+      //   );
+      // });
     });
+
   }
 
 
@@ -62,7 +92,7 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
 
               SafeArea(
                   child: Padding(
-                  padding: const EdgeInsets.only(left: 40, top: 20),
+                  padding: const EdgeInsets.only(left: 20, top: 10),
                   child: Row(
                       children: <Widget>[
                             Container(
@@ -70,7 +100,7 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
                                 width: 50,
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: SShadowColor,
+                                    color: Colors.white,
                                 ),
                                 child: IconButton(
                                     icon: new Icon(Icons.arrow_back),
@@ -111,10 +141,10 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
         bottomNavigationBar: Container( //navigation bar
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(5),
-                    topRight: Radius.circular(5),
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
             ),
-            color: Colors.white,
+            color: KLightNavBarColor,
           ),
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           height: 65,

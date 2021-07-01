@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smart_ride_app/constraints.dart';
+import 'package:smart_ride_app/constants.dart';
 import 'package:smart_ride_app/screens/available_bus_map_screen.dart';
 import 'package:smart_ride_app/screens/past_travel_screen.dart';
 import 'package:smart_ride_app/screens/start_screen.dart';
@@ -17,7 +17,7 @@ class FareRates extends StatelessWidget {
         children: <Widget>[
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.only(left: 20, top: 10),
               child: Column(
                 children: <Widget>[
                   Row(
@@ -28,7 +28,7 @@ class FareRates extends StatelessWidget {
                                   width: 50,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: SShadowColor,
+                                    color: KScaffoldColor,
                                   ),
                               child: IconButton(
                                   icon: new Icon(Icons.arrow_back),
@@ -47,13 +47,11 @@ class FareRates extends StatelessWidget {
                               child: Text(
                                 "Fare Rates",
                                 textAlign: TextAlign.center,
-                                style: Theme.of(context)
-                                          .textTheme
-                                          .headline4
-                                          .copyWith(
-                                         fontWeight: FontWeight.w900,
-                                         fontSize: 25,
-                                      ),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 25,
+                                  color: Colors.black
+                                ),
                             ),
                           ),
 
@@ -72,7 +70,7 @@ class FareRates extends StatelessWidget {
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30),
             ),
-            color: Colors.white,
+            color: KLightNavBarColor,
           ),
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           height: 65,

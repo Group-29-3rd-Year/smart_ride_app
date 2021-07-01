@@ -193,8 +193,6 @@
 // }
 
 import 'package:flutter/material.dart';
-// import 'package:signup/Screens/Welcome/welcome_screen.dart';
-// import 'package:signup/constants.dart';
 import 'package:smart_ride_app/constants.dart';
 import 'package:smart_ride_app/screens/welcome/welcome_screen.dart';
 
@@ -208,10 +206,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Smart Ride',
       theme: ThemeData(
         primaryColor: kPrimaryColor,
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: KScaffoldColor,
       ),
       home: WelcomeScreen(),
     );
