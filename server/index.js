@@ -9,7 +9,7 @@ app.use(cors());
 app.use("/fare", require('./routes/fareRate'));
 
 //past travels
-app.use("/farides", require('./routes/pastTravel'));
+app.use("/pasttravels", require('./routes/pastTravel'));
 
 app.listen(5002, () => { 
     console.log("server is running on port 5002");
