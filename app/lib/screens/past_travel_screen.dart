@@ -19,21 +19,20 @@ class _PastTravelsState extends State<PastTravels> {
   // const PastTravels({ 
   //   Key key 
   // }) : super(key: key);
-
   List pasttravels = [];
   bool isLoading = false;
 
-  
+  void initState() {
+    super.initState();
+    this.fetchPastTravels();
+  }
 
   fetchPastTravels() async {
-    setState(() {
-      isLoading = true;
-    });
-    
     var url = "http://192.168.43.199:5002/pasttravels"; //have to check with ip and localhost
     var response = await http.get(Uri.parse(url));
     if(response.statusCode == 200) {
       var items = json.decode(response.body);
+      print(items);
       setState(() {
         pasttravels = items;
         isLoading = false;
@@ -45,13 +44,12 @@ class _PastTravelsState extends State<PastTravels> {
       });
     }
   }
+ 
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-
-
         appBar: AppBar(
           backgroundColor: kPrimaryColor,
           leading: IconButton(
@@ -77,7 +75,6 @@ class _PastTravelsState extends State<PastTravels> {
         ),
 
         body: getBody(),
-
 
       bottomNavigationBar: Container( //navigation bar
           decoration: BoxDecoration(
@@ -134,55 +131,84 @@ class _PastTravelsState extends State<PastTravels> {
 
   Widget getBody() {
     if(pasttravels.contains(null) || pasttravels.length < 0 || isLoading) {
-      return Center(child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.lightBlue),));
+        return Center(child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.lightBlue),));
     }
     return ListView.builder(
       itemCount: pasttravels.length,
-      itemBuilder: (context,index) {
-        return getCard(pasttravels[index]);
+      itemBuilder: (context, index){
+      return getCard(pasttravels[index]);
     });
   }
 
   Widget getCard(item) {
-    var travelDate = item['date'];
-    var travelCost = item['cost'];
-
+    var cost = "Rs. " + item['cost'].toString();
+    var date = item['date'];
+    var bus = "Bus No: " + item['bus_number'].toString();
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+        side: BorderSide(color: Colors.black),
+      ),
       child: ListTile(
+        // shape: RoundedRectangleBorder(
+        //   borderRadius: BorderRadius.circular(20),
+        //   side: BorderSide(color: Colors.black),
+        // ),
         title: Row(
           children: <Widget>[
-            Row(
-              children: <Widget>[
 
-                Padding(
-                  padding: const EdgeInsets.only(left: 90.0),
-                  child: Text(
-                    travelDate.toString(),
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+            Container(
+              width: 150,
+              height: 80,
+              //color: Colors.blue,
+              child: Center(
+                child: Text(
+                  //"test rs",
+                  cost.toString(),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 35,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.green
                   ),
                 ),
-                SizedBox(width: 20,),
-
-                Padding(
-                  padding: const EdgeInsets.only(left: 90.0),
-                  child: Text(
-                    travelCost.toString(),
+              ),
+            ),
+            
+            Padding(
+              padding: const EdgeInsets.only(left: 0.0),
+              child: Column(
+                //crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    //"test date",
+                    date,
                     style: TextStyle(
-                      fontSize: 20,
                       fontWeight: FontWeight.bold,
+                      fontSize: 17,
                     ),
                   ),
-                ),
-                SizedBox(width: 20,),
 
-              ],
-            )
+                  SizedBox(height: 10,),
+
+                  Text(
+                    //"test bus no",
+                    bus.toString(),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Colors.blue
+                    ),
+                  ),
+
+                ],
+              ),
+            ),
+
           ],
         ),
       ),
     );
   }
+
 }

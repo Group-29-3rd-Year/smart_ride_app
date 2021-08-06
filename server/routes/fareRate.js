@@ -6,7 +6,7 @@ router.get("/", async (req, res) => {
     try {
       //1. select query for view all fares in our database
       const fares = await pool.query(
-        "SELECT fare_km, fare_price FROM fare "
+        "SELECT fare_km, fare_price FROM fare ORDER BY fare_km ASC"
       ); 
       //console.log(busses);
       //2. check fares in the database
