@@ -8,7 +8,7 @@ router.get("/", async(req, res) => {
       //let id = req.params.passanger_id;
 
       const rides = await pool.query(
-          "SELECT * FROM ride_details"
+          "SELECT DATE(ride_details.date), ride_details.cost, bus.bus_number FROM ride_details INNER JOIN bus ON ride_details.bus_id=bus.bus_id ORDER BY ride_id DESC"
       );
       
       if (rides.rows.length === 0) {

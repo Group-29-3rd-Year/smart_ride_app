@@ -41,6 +41,7 @@ class _FareRatesState extends State<FareRates> {
     var response = await http.get(Uri.parse(url));
     if(response.statusCode == 200) {
       var items = json.decode(response.body);
+      print(items);
       setState(() {
         fares = items;
         isLoading = false;
@@ -158,10 +159,8 @@ class _FareRatesState extends State<FareRates> {
       child: ListTile(
         title: Row(
           children: <Widget>[
-           
             Row(
               children: <Widget>[
-
                 Padding(
                   padding: const EdgeInsets.only(left: 90.0),
                   child: Text(
