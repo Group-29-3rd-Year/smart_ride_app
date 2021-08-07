@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:smart_ride_app/constants.dart';
 import 'package:smart_ride_app/screens/available_bus_map_screen.dart';
@@ -8,13 +7,10 @@ import 'package:smart_ride_app/widgets/bottom_nav_item.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:core';
-
-
 class PastTravels extends StatefulWidget {
   @override
   _PastTravelsState createState() => _PastTravelsState();
 }
-
 class _PastTravelsState extends State<PastTravels> {
   // const PastTravels({ 
   //   Key key 
@@ -28,7 +24,7 @@ class _PastTravelsState extends State<PastTravels> {
   }
 
   fetchPastTravels() async {
-    var url = "http://192.168.43.199:5002/pasttravels"; //have to check with ip and localhost
+    var url = "http://192.168.1.102:5002/pasttravels"; //have to check with ip and localhost
     var response = await http.get(Uri.parse(url));
     if(response.statusCode == 200) {
       var items = json.decode(response.body);
@@ -44,7 +40,7 @@ class _PastTravelsState extends State<PastTravels> {
       });
     }
   }
- 
+
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +72,7 @@ class _PastTravelsState extends State<PastTravels> {
 
         body: getBody(),
 
-      bottomNavigationBar: Container( //navigation bar
+              bottomNavigationBar: Container( //navigation bar
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30),
@@ -90,7 +86,6 @@ class _PastTravelsState extends State<PastTravels> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-
               BottomNavItem(
                 title: "Past Travels",
                 botIcon: Icons.history,
@@ -131,11 +126,11 @@ class _PastTravelsState extends State<PastTravels> {
 
   Widget getBody() {
     if(pasttravels.contains(null) || pasttravels.length < 0 || isLoading) {
-        return Center(child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.lightBlue),));
+              return Center(child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.lightBlue),));
     }
     return ListView.builder(
       itemCount: pasttravels.length,
-      itemBuilder: (context, index){
+            itemBuilder: (context, index){
       return getCard(pasttravels[index]);
     });
   }
@@ -156,8 +151,7 @@ class _PastTravelsState extends State<PastTravels> {
         // ),
         title: Row(
           children: <Widget>[
-
-            Container(
+                        Container(
               width: 150,
               height: 80,
               //color: Colors.blue,
@@ -174,7 +168,7 @@ class _PastTravelsState extends State<PastTravels> {
                 ),
               ),
             ),
-            
+
             Padding(
               padding: const EdgeInsets.only(left: 0.0),
               child: Column(
@@ -188,7 +182,6 @@ class _PastTravelsState extends State<PastTravels> {
                       fontSize: 17,
                     ),
                   ),
-
                   SizedBox(height: 10,),
 
                   Text(
@@ -200,8 +193,7 @@ class _PastTravelsState extends State<PastTravels> {
                       color: Colors.blue
                     ),
                   ),
-
-                ],
+                                  ],
               ),
             ),
 
@@ -211,4 +203,4 @@ class _PastTravelsState extends State<PastTravels> {
     );
   }
 
-}
+} 

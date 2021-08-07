@@ -13,7 +13,6 @@ import 'dart:core';
 
 class AvailableBusMap extends StatefulWidget {
   const AvailableBusMap({ Key key }) : super(key: key);
-
   @override
   _AvailableBusMapState createState() => _AvailableBusMapState();
 }
@@ -35,7 +34,7 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
       isLoading = true;
     });
 
-    var url = "http://192.168.43.199:5002/buslocations";
+    var url = "http://192.168.1.102:5002/buslocations";
     var response = await http.get(Uri.parse(url));
     if(response.statusCode == 200) {
       var items = json.decode(response.body);
@@ -55,23 +54,19 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
   LatLng _initialcameraposition = LatLng(6.0535, 80.2210);
   GoogleMapController _controller;
   Location _location = Location();
-
   // Set<Marker> _markers = {};
   // BitmapDescriptor mapMarker;
-
   // @override
   // void initState() {
   //   super.initState();
   //   setCustomMarker();
   // }
-
   // void setCustomMarker() async {
   //   mapMarker = await BitmapDescriptor.fromAssetImage(
   //     ImageConfiguration(), 
   //     'assets/images/location_blue.png'
   //   );
   // }
-
   void _onMapCreated(GoogleMapController _cntlr)
   {
     _controller = _cntlr;
@@ -81,7 +76,6 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
           CameraPosition(target: LatLng(l.latitude, l.longitude),zoom: 15),
           ),
       );
-
       // setState(() {
       //   _markers.add(
       //     Marker(
@@ -95,15 +89,10 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
       //   );
       // });
     });
-
   }
-
-
   @override
   Widget build(BuildContext context) {
-
     var size = MediaQuery.of(context).size;
-
     return Scaffold(
       
         body: Stack(
@@ -120,11 +109,9 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
                     tiltGesturesEnabled: true,
                     myLocationButtonEnabled: false,
                     mapToolbarEnabled: false,
-
                     
                 ),
               ),
-
               SafeArea(
                   child: Padding(
                   padding: const EdgeInsets.only(left: 20, top: 10),
@@ -168,11 +155,9 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
                   ),
                 ),
               ),
-
               
           ],
         ),
-
         bottomNavigationBar: Container( //navigation bar
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
@@ -187,7 +172,6 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-
               BottomNavItem(
                 title: "Past Travels",
                 botIcon: Icons.history,
@@ -224,27 +208,19 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
           ),
         ),
     );
-
   }
 }
-
-
 // another way
-
 // class AvailableBusMap extends StatefulWidget {
 //   @override
 //   _AvailableBusMapState createState() => _AvailableBusMapState();
 // }
-
 // class _AvailableBusMapState extends State<AvailableBusMap> {
 //   GoogleMapController mapController;
-
 //   final LatLng _center = const LatLng(45.521563, -122.677433);
-
 //   void _onMapCreated(GoogleMapController controller) {
 //     mapController = controller;
 //   }
-
 //   @override
 //   Widget build(BuildContext context) {
 //     return MaterialApp(
@@ -264,15 +240,11 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
 //     );
 //   }
 // }
-
-
 //normal scaffold
-
 // class AvailableBusMap extends StatelessWidget {
 //   const AvailableBusMap({ 
 //     Key key 
 //   }) : super(key: key);
-
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
@@ -304,7 +276,6 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
 //                                   },
 //                               ),
 //                           ),
-
 //                           Padding(
 //                               padding: const EdgeInsets.symmetric(vertical: 20.0),
 //                               child: Text(
@@ -320,7 +291,6 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
                                 
 //                             ),
 //                           ),
-
 //                       ],
 //                   ),
 //                 ],
@@ -329,7 +299,6 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
 //           ),
 //         ],
 //       ),
-
 //       bottomNavigationBar: Container( //navigation bar
 //           decoration: BoxDecoration(
 //             borderRadius: BorderRadius.only(
@@ -344,7 +313,6 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
 //           child: Row(
 //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
 //             children: <Widget>[
-
 //               BottomNavItem(
 //                 title: "Past Travels",
 //                 botIcon: Icons.history,
@@ -383,4 +351,3 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
 //     );
 //   }
 // }
-
