@@ -7,6 +7,9 @@ import 'package:smart_ride_app/screens/fare_rates_screen.dart';
 import 'package:smart_ride_app/screens/past_travel_screen.dart';
 import 'package:smart_ride_app/screens/start_screen.dart';
 import 'package:smart_ride_app/widgets/bottom_nav_item.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:core';
 
 class AvailableBusMap extends StatefulWidget {
   const AvailableBusMap({ Key key }) : super(key: key);
@@ -16,6 +19,38 @@ class AvailableBusMap extends StatefulWidget {
 }
 
 class _AvailableBusMapState extends State<AvailableBusMap> {
+
+  List locations = [];
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    this.fetchLocation();
+  }
+
+  fetchLocation() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    var url = "http://192.168.43.199:5002/buslocations";
+    var response = await http.get(Uri.parse(url));
+    if(response.statusCode == 200) {
+      var items = json.decode(response.body);
+      print(items);
+      setState(() {
+        locations = items;
+        isLoading = false;
+      });
+    }else {
+      setState(() {
+        locations = [];
+        isLoading = false;
+      });
+    }
+  }
 
   LatLng _initialcameraposition = LatLng(6.0535, 80.2210);
   GoogleMapController _controller;
