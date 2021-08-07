@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:core';
-
 import 'package:flutter/material.dart';
 import 'package:smart_ride_app/constants.dart';
 import 'package:smart_ride_app/screens/available_bus_map_screen.dart';
@@ -8,36 +7,32 @@ import 'package:smart_ride_app/screens/past_travel_screen.dart';
 import 'package:smart_ride_app/screens/start_screen.dart';
 import 'package:smart_ride_app/widgets/bottom_nav_item.dart';
 import 'package:http/http.dart' as http;
-
 // ignore: must_be_immutable
-
 class FareRates extends StatefulWidget {
   @override
   _FareRatesState createState() => _FareRatesState();
 }
-
-
 class _FareRatesState extends State<FareRates> {
   // const FareRates({ 
   //   Key key 
   // }) : super(key: key);
 
-  List fares = [];
-  bool isLoading = false;
+    List fares = [];
+    bool isLoading = false;
 
-  @override
+      @override
   void initState() {
-    // TODO: implement initState
+        // TODO: implement initState
     super.initState();
     this.fetchFare();
   }
 
   fetchFare() async {
     setState(() {
-      isLoading = true;
+            isLoading = true;
     });
     
-    var url = "http://192.168.43.199:5002/fare"; //have to check with ip and localhost
+    var url = "http://192.168.1.102:5002/fare"; //have to check with ip and localhost
     var response = await http.get(Uri.parse(url));
     if(response.statusCode == 200) {
       var items = json.decode(response.body);
@@ -54,13 +49,11 @@ class _FareRatesState extends State<FareRates> {
     }
   }
 
-
-
-  @override
-  Widget build(BuildContext context) {
+    @override
+    Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-
+      
       appBar: AppBar(
         leading: IconButton(
           icon: new Icon(Icons.arrow_back),
@@ -78,7 +71,7 @@ class _FareRatesState extends State<FareRates> {
           "Fare Rates",
           style: TextStyle(fontSize: 25),
         ),
-        
+
         toolbarHeight: size.height * 0.08,
         titleSpacing: 30,
         automaticallyImplyLeading: false,
@@ -96,8 +89,7 @@ class _FareRatesState extends State<FareRates> {
           ),
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           height: 65,
-          
-          child: Row(
+                    child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
 
@@ -113,7 +105,6 @@ class _FareRatesState extends State<FareRates> {
                   );
                 },
               ),
-              
               BottomNavItem(
                 title: "Available Busses",
                 botIcon: Icons.directions_bus,
@@ -126,21 +117,18 @@ class _FareRatesState extends State<FareRates> {
                   );
                 },
               ),
-              
               BottomNavItem(
                 title: "Fare Rates",
                 botIcon: Icons.corporate_fare,
                 press: () {},
               ),
             ]
-            
           ),
       ),
 
 
     );
   }
-
   Widget getBody() {
     if(fares.contains(null) || fares.length < 0 || isLoading) {
       return Center(child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.lightBlue),));
@@ -159,8 +147,10 @@ class _FareRatesState extends State<FareRates> {
       child: ListTile(
         title: Row(
           children: <Widget>[
+
             Row(
               children: <Widget>[
+
                 Padding(
                   padding: const EdgeInsets.only(left: 90.0),
                   child: Text(
@@ -172,11 +162,9 @@ class _FareRatesState extends State<FareRates> {
                   ),
                 ),
                 SizedBox(width: 20,),
-
                 Container(
                   child: Icon(
                     Icons.arrow_forward,
-
                   ),
                 ),
                 SizedBox(width: 20,),
@@ -196,5 +184,4 @@ class _FareRatesState extends State<FareRates> {
     );
   }
 
-  
 }
