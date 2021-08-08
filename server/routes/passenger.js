@@ -35,4 +35,24 @@ router.post("/register", async (req, res) => {
 
 });
 
+router.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const userExist = await pool.query(
+      "SELECT * FROM passenger WHERE email = $1 AND password = $2",
+      [email, password]
+    );
+
+    if (userExist.rows.length !== 0) {
+      res.json("Success");
+    } else {
+      res.json("Error");
+    }
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
 module.exports = router;

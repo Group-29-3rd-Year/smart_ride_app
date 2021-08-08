@@ -41,7 +41,8 @@ class _BodyState extends State<Body> {
     );
     
     var data = response.body;
-    if (data== "Success") {
+    
+    if (data== '"Success"') {
       Fluttertoast.showToast(
         msg: "Registration Successfully",
         toastLength: Toast.LENGTH_SHORT,

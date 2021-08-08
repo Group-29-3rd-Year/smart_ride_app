@@ -8,6 +8,9 @@ app.use(cors());
 //register 
 app.use("/add", require('./routes/passenger'));
 
+//login
+app.use("/login", require('./routes/passenger'));
+
 //fare rates
 app.use("/fare", require('./routes/fareRate'));
 
