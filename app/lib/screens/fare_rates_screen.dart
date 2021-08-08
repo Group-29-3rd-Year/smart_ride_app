@@ -32,7 +32,7 @@ class _FareRatesState extends State<FareRates> {
             isLoading = true;
     });
     
-    var url = "http://192.168.1.102:5002/fare"; //have to check with ip and localhost
+    var url = "http://192.168.43.199:5002/fare"; //have to check with ip and localhost
     var response = await http.get(Uri.parse(url));
     if(response.statusCode == 200) {
       var items = json.decode(response.body);
