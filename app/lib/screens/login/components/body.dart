@@ -77,72 +77,81 @@ class _BodyState extends State<Body> {
 
   }
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Background(
       child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-
-            SizedBox(height: size.height*0.05,),
-            Text(
-              "LOGIN", 
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 30
-              ),
-            ),
-
-            SizedBox(height: size.height * 0.03,),
-            SvgPicture.asset(
-              "assets/icons/login.svg",
-              height: size.height*0.43,  
-            ),
-
-            SizedBox(height: size.height * 0.03,),
-            RoundedInputField(
-              hintText: "Your Email",
-              onChanged: (value) {
-                setState((){
-                  email = value;
-                });
-              },
-              icon: Icons.email,
-            ),
-
-            RoundedPasswordField(
-              onChanged: (value) {
-                setState((){
-                  pass = value;
-                });
-              },
-            ),
-
-            RoundedButton(
-              text: "LOGIN",
-              press: () {
-                login();
-              },
-            ),
-
-            SizedBox(height: size.height * 0.03,),
-            AlreadyHaveAnAccountCheck(
-              press: () {
-                Navigator.push(
-                  context, 
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return SignUpScreen();
-                    },
+        child: Form(
+          key: _formKey,
+          child: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+        
+                SizedBox(height: size.height*0.05,),
+                Text(
+                  "LOGIN", 
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30
                   ),
-                );
-              },
+                ),
+        
+                SizedBox(height: size.height * 0.03,),
+                SvgPicture.asset(
+                  "assets/icons/login.svg",
+                  height: size.height*0.43,  
+                ),
+        
+                SizedBox(height: size.height * 0.03,),
+                RoundedInputField(
+                  hintText: "Your Email",
+                  onChanged: (value) {
+                    setState((){
+                      email = value;
+                    });
+                  },
+                  icon: Icons.email,
+                ),
+        
+                RoundedPasswordField(
+                  onChanged: (value) {
+                    setState((){
+                      pass = value;
+                    });
+                  },
+                ),
+        
+                RoundedButton(
+                  text: "LOGIN",
+                  press: () {
+                    if (_formKey.currentState.validate()) {
+                      login();
+                    }                    
+                  },
+                ),
+        
+                SizedBox(height: size.height * 0.03,),
+                AlreadyHaveAnAccountCheck(
+                  press: () {
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return SignUpScreen();
+                        },
+                      ),
+                    );
+                  },
+                ),
+        
+                SizedBox(height: size.height*0.01,),
+              ],
             ),
-
-            SizedBox(height: size.height*0.01,),
-          ],
+          ),
         ),
       ),
     );

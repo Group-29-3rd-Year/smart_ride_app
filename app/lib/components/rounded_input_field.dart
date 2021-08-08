@@ -16,7 +16,7 @@ class RoundedInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
-      child: TextField(
+      child: TextFormField(
         onChanged: onChanged,
         decoration: InputDecoration(
           icon: Icon(
@@ -26,6 +26,12 @@ class RoundedInputField extends StatelessWidget {
           hintText: hintText,
           border: InputBorder.none,
         ),
+        validator: (text) {
+          if (text.isEmpty) {
+            return 'This field cannot be empty.';
+          }
+          return null;
+        },
       ),
     );
   }

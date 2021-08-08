@@ -75,131 +75,140 @@ class _BodyState extends State<Body> {
     
   }
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Background(
       child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-
-            SizedBox(height: size.height*0.06,),
-            Text(
-              "SIGN UP", 
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 30
-              ),
-            ),
-
-            SizedBox(height: size.height*0.03,),
-            SvgPicture.asset(
-              "assets/icons/signup.svg",
-              height: size.height*0.4,
-            ),
-
-            RoundedInputField(
-              hintText: "Username",
-              onChanged: (value) {
-                setState((){
-                  name = value;
-                });
-              },
-              icon: Icons.person,
-            ),
-
-            RoundedInputField(
-              hintText: "Phone Number",
-              onChanged: (value) {
-                setState((){
-                  phone = value;
-                });
-              },
-              icon: Icons.phone,
-            ),
-
-            RoundedInputField(
-              hintText: "Email",
-              onChanged: (value) {
-                setState((){
-                  email = value;
-                });
-              },
-              icon: Icons.email,
-            ),
-
-            RoundedPasswordField(
-              onChanged: (value) {
-                setState((){
-                  pass = value;
-                });
-              },
-            ),
-
-            // RoundedInputField(
-            //   hintText: "Card Number",
-            //   onChanged: (value) {},
-            //   icon: Icons.credit_card,
-            // ),
-
-            // RoundedInputField(
-            //   hintText: "Expiry Date",
-            //   onChanged: (value) {},
-            //   icon: Icons.calendar_today,
-            // ),
-
-            // RoundedInputField(
-            //   hintText: "CVV",
-            //   onChanged: (value) {},
-            //   icon: Icons.credit_card,
-            // ),
-
-            RoundedButton(
-              text: "SIGN UP",
-              press: () {
-                register();
-              },
-            ),
-
-            SizedBox(height: size.height*0.03,),
-            AlreadyHaveAnAccountCheck(
-              login: false,
-              press: () {
-                Navigator.push(
-                  context, 
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return LoginScreen();
-                    },
-                  ),
-                );
-              },
-            ),
-
-            OrDivider(),
-
-            Row(
+        child: Form(
+          key: _formKey,
+          child: Container(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SocialIcon(
-                  iconSrc: "assets/icons/facebook.svg",
-                  press: () {},
+        
+                SizedBox(height: size.height*0.06,),
+                Text(
+                  "SIGN UP", 
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30
+                  ),
                 ),
-                SocialIcon(
-                  iconSrc: "assets/icons/twitter.svg",
-                  press: () {},
+        
+                SizedBox(height: size.height*0.03,),
+                SvgPicture.asset(
+                  "assets/icons/signup.svg",
+                  height: size.height*0.4,
                 ),
-                SocialIcon(
-                  iconSrc: "assets/icons/google-plus.svg",
-                  press: () {},
+        
+                RoundedInputField(
+                  hintText: "Username",
+                  onChanged: (value) {
+                    setState((){
+                      name = value;
+                    });
+                  },
+                  icon: Icons.person,
                 ),
+        
+                RoundedInputField(
+                  hintText: "Phone Number",
+                  onChanged: (value) {
+                    setState((){
+                      phone = value;
+                    });
+                  },
+                  icon: Icons.phone,
+                ),
+        
+                RoundedInputField(
+                  hintText: "Email",
+                  onChanged: (value) {
+                    setState((){
+                      email = value;
+                    });
+                  },
+                  icon: Icons.email,
+                ),
+        
+                RoundedPasswordField(
+                  onChanged: (value) {
+                    setState((){
+                      pass = value;
+                    });
+                  },
+                ),
+        
+                // RoundedInputField(
+                //   hintText: "Card Number",
+                //   onChanged: (value) {},
+                //   icon: Icons.credit_card,
+                // ),
+        
+                // RoundedInputField(
+                //   hintText: "Expiry Date",
+                //   onChanged: (value) {},
+                //   icon: Icons.calendar_today,
+                // ),
+        
+                // RoundedInputField(
+                //   hintText: "CVV",
+                //   onChanged: (value) {},
+                //   icon: Icons.credit_card,
+                // ),
+        
+                RoundedButton(
+                  text: "SIGN UP",
+                  press: () {
+                    if (_formKey.currentState.validate()) {
+                      register();
+                    }
+                  },
+                ),
+        
+                SizedBox(height: size.height*0.03,),
+                AlreadyHaveAnAccountCheck(
+                  login: false,
+                  press: () {
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return LoginScreen();
+                        },
+                      ),
+                    );
+                  },
+                ),
+        
+                OrDivider(),
+        
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SocialIcon(
+                      iconSrc: "assets/icons/facebook.svg",
+                      press: () {},
+                    ),
+                    SocialIcon(
+                      iconSrc: "assets/icons/twitter.svg",
+                      press: () {},
+                    ),
+                    SocialIcon(
+                      iconSrc: "assets/icons/google-plus.svg",
+                      press: () {},
+                    ),
+                  ],
+                ),
+        
+                SizedBox(height: size.height*0.01,),
+                
               ],
             ),
-
-            SizedBox(height: size.height*0.01,),
-            
-          ],
+          ),
         ),
       ),
     );
