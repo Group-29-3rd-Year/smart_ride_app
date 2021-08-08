@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { response } = require("express");
 const pool = require("../db");
+const bcrypt = require("bcrypt");
 
 router.post("/register", async (req, res) => {
 
@@ -18,14 +19,20 @@ router.post("/register", async (req, res) => {
           return res.status(401).send("Paasenger already exists");
         }
         else{
-            const newPassenger = await pool.query(
-              "INSERT INTO passenger (uname, phone_number, email, password) VALUES ($1, $2, $3, $4) RETURNING *",
-              [uname, phone_number, email, password]
-            );
+          // bcrypt the password
+          const saltRound = 10;
+          const salt = await bcrypt.genSalt(saltRound);
 
-            if (newPassenger) {
-                res.json("Success");
-            }
+          const bcryptPassword = await bcrypt.hash(password, salt);
+
+          const newPassenger = await pool.query(
+            "INSERT INTO passenger (uname, phone_number, email, password) VALUES ($1, $2, $3, $4) RETURNING *",
+            [uname, phone_number, email, bcryptPassword]
+          );
+
+          if (newPassenger) {
+            res.json("Success");
+          }
         }
 
     } catch (err) {
@@ -37,18 +44,40 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   try {
+    //1. destructure the req.body
     const { email, password } = req.body;
 
-    const userExist = await pool.query(
-      "SELECT * FROM passenger WHERE email = $1 AND password = $2",
-      [email, password]
-    );
+    //2. check if user dosen't exist(if not then thrwo error)
+    const user = await pool.query("SELECT * FROM passenger WHERE email= $1", [
+      email,
+    ]);
 
-    if (userExist.rows.length !== 0) {
-      res.json("Success");
-    } else {
+    if (user.rows.length === 0) {
       res.json("Error");
     }
+
+    //3. check if incoming password is the same the db password
+    const validPassword = await bcrypt.compare(
+      password,
+      user.rows[0].password
+    );
+
+    if (!validPassword) {
+      res.json("Error");
+    }
+    else {
+      res.json("Success");
+    }
+    // const userExist = await pool.query(
+    //   "SELECT * FROM passenger WHERE email = $1 AND password = $2",
+    //   [email, password]
+    // );
+
+    // if (userExist.rows.length !== 0) {
+    //   res.json("Success");
+    // } else {
+    //   res.json("Error");
+    // }
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");
