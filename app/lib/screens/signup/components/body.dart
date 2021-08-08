@@ -52,6 +52,15 @@ class _BodyState extends State<Body> {
         textColor: Colors.white,
         fontSize: 16.0
       );
+
+      Navigator.push(
+        context, 
+          MaterialPageRoute(
+            builder: (context) {
+              return LoginScreen();
+            },
+          ),
+      );
     } else {
         Fluttertoast.showToast(
         msg: "This User Already Exist",
