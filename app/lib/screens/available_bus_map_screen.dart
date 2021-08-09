@@ -1,5 +1,4 @@
 //import 'dart:math';
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:location/location.dart' as location;
@@ -10,8 +9,8 @@ import 'package:smart_ride_app/screens/past_travel_screen.dart';
 import 'package:smart_ride_app/screens/start_screen.dart';
 import 'package:smart_ride_app/widgets/bottom_nav_item.dart';
 import 'package:http/http.dart' as http;
-import 'package:geocoding/geocoding.dart' as geocoding;
-import 'package:geocoder/geocoder.dart' as geocoder;
+// import 'package:geocoding/geocoding.dart' as geocoding;
+// import 'package:geocoder/geocoder.dart' as geocoder;
 import 'dart:convert';
 import 'dart:core';
 

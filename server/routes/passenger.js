@@ -84,4 +84,25 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.post("/getpid", async (req,res) => {
+
+  try {
+    const { email } = req.body;
+
+    const uid = await pool.query("SELECT pid FROM passenger WHERE email = $1",
+        [ email ]  
+    );
+
+    if (uid.rows.length === 0) {
+      return res.status(401).json("Haven't match passenger for selected email.");
+    }
+
+    res.json(uid.rows[0]);
+
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
 module.exports = router;

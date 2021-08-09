@@ -5,11 +5,11 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
  
-//register 
+//register  
 app.use("/add", require('./routes/passenger'));
 
-//login
-app.use("/login", require('./routes/passenger'));
+//login 
+//app.use("/login", require('./routes/passenger'));
 
 //fare rates
 app.use("/fare", require('./routes/fareRate'));

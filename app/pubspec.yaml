@@ -36,8 +36,13 @@ dependencies:
   http: ^0.13.3
   postgres: ^2.3.2
   fluttertoast: ^8.0.8
-  geocoding: ^2.0.0
-  geocoder: ^0.2.1
+  session: ^1.0.3+2
+  # geocoding: ^2.0.0
+  # geocoder: ^0.2.1
+  flutter_session:
+    git:
+      url: https://github.com/jhourlad/flutter_session
+      ref: master
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,6 +12,7 @@ import 'package:smart_ride_app/screens/signup/signup_screen.dart';
 import 'package:smart_ride_app/screens/start_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_session/flutter_session.dart';
 
 class Body extends StatefulWidget {
   const Body({
@@ -26,9 +28,19 @@ class _BodyState extends State<Body> {
   String email;
   String pass;
 
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   this.login();
+  //   this.getPID();
+    
+  // }
+
   Future login()async {
 
-    var url = "http://192.168.1.5:5002/add/login";
+    
+    var url = "http://192.168.43.199:5002/add/login";
     http.Response response = await http.post(
       Uri.parse(url),
       headers: <String,String>{
@@ -76,6 +88,30 @@ class _BodyState extends State<Body> {
     }
 
   }
+
+
+  Future getPID() async {
+        
+        print(email);
+
+        var url = "http://192.168.43.199:5002/add/getpid";
+            http.Response response = await http.post(
+              Uri.parse(url),
+              headers: <String,String>{
+                'Content-Type': 'application/json; charset=UTF-8',
+              },
+              body: jsonEncode(<String,String>{
+                  "email": email,
+              })
+            );
+
+        var data = jsonDecode(response.body);
+        print(data['pid']);
+        await FlutterSession().set('passengerID', data['pid']);
+        
+  }
+
+  
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -130,6 +166,7 @@ class _BodyState extends State<Body> {
                   press: () {
                     if (_formKey.currentState.validate()) {
                       login();
+                      getPID();
                     }                    
                   },
                 ),
