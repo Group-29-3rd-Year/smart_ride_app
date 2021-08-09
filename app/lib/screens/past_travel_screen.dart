@@ -5,6 +5,7 @@ import 'package:smart_ride_app/screens/fare_rates_screen.dart';
 import 'package:smart_ride_app/screens/start_screen.dart';
 import 'package:smart_ride_app/widgets/bottom_nav_item.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_session/flutter_session.dart';
 import 'dart:convert';
 import 'dart:core';
 class PastTravels extends StatefulWidget {
@@ -15,6 +16,8 @@ class _PastTravelsState extends State<PastTravels> {
   // const PastTravels({ 
   //   Key key 
   // }) : super(key: key);
+  
+
   List pasttravels = [];
   bool isLoading = false;
 
@@ -24,6 +27,38 @@ class _PastTravelsState extends State<PastTravels> {
   }
 
   fetchPastTravels() async {
+
+    var passengerID = await FlutterSession().get("passengerID");
+    print(passengerID);
+
+    // var url = "http://192.168.43.199:5002/pasttravels";
+    //   http.Response response = await http.post(
+    //     Uri.parse(url),
+    //     headers: <String,String>{
+    //         'Content-Type': 'application/json; charset=UTF-8',
+    //     },
+    //     body: jsonEncode(<String,String>{
+    //         "passengerID": passengerID,
+    //     })
+    //   );
+
+    //   if(response.statusCode == 200) {
+    //     var items = jsonDecode(response.body);
+    //     print(items);
+    //     setState(() {
+    //       pasttravels = items;
+    //       isLoading = false;
+    //     });
+    //   }else {
+    //     print("non");
+    //     setState(() {
+    //       pasttravels = [];
+    //       isLoading = false;
+    //     });
+    //   }
+
+
+
     var url = "http://192.168.43.199:5002/pasttravels"; //have to check with ip and localhost
     var response = await http.get(Uri.parse(url));
     if(response.statusCode == 200) {

@@ -26,7 +26,7 @@ class _BodyState extends State<Body> {
   String pass;
 
   Future register()async {
-    var url = "http://192.168.1.5:5002/add/register";
+    var url = "http://192.168.43.199:5002/add/register";
     http.Response response = await http.post(
       Uri.parse(url),
       headers: <String,String>{

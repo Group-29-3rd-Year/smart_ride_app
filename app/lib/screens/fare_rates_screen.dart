@@ -29,7 +29,7 @@ class _FareRatesState extends State<FareRates> {
 
   fetchFare() async {
     setState(() {
-            isLoading = true;
+      isLoading = true;
     });
     
     var url = "http://192.168.43.199:5002/fare"; //have to check with ip and localhost
