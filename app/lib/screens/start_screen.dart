@@ -3,6 +3,7 @@ import 'package:smart_ride_app/components/rounded_button.dart';
 import 'package:smart_ride_app/constants.dart';
 import 'package:smart_ride_app/screens/available_bus_map_screen.dart';
 import 'package:smart_ride_app/screens/fare_rates_screen.dart';
+import 'package:smart_ride_app/screens/nfc_connect_screen.dart';
 import 'package:smart_ride_app/screens/past_travel_screen.dart';
 import 'package:smart_ride_app/widgets/bottom_nav_item.dart';
 
@@ -80,7 +81,14 @@ class StartScreen extends StatelessWidget {
                         child: RoundedButton(
                           text: "START RIDE",
                           color: kPrimaryColor,
-                          press: () {},
+                          press: () {
+                            Navigator.push(
+                              context, 
+                              MaterialPageRoute(
+                                builder: (context) {return NFC_Connect();}
+                              )
+                            );
+                          },
                         ),
 
                   ),
