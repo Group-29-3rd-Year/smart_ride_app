@@ -27,7 +27,7 @@ class _FareRatesState extends State<FareRates> {
     this.fetchFare();
   }
 
-  fetchFare() async {
+  Future fetchFare() async {
     setState(() {
       isLoading = true;
     });

@@ -43,6 +43,10 @@ dependencies:
     git:
       url: https://github.com/jhourlad/flutter_session
       ref: master
+  flutter_nfc_reader: ^0.1.0
+  widget_circular_animator: ^1.0.0
+  awesome_loader: ^0.0.3
+  screen_loader: ^2.0.1
 
 dev_dependencies:
   flutter_test:

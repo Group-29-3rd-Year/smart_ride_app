@@ -26,7 +26,7 @@ class _PastTravelsState extends State<PastTravels> {
     this.fetchPastTravels();
   }
 
-  fetchPastTravels() async {
+  Future fetchPastTravels() async {
 
     var passengerID = await FlutterSession().get("passengerID");
     print(passengerID);
@@ -107,7 +107,7 @@ class _PastTravelsState extends State<PastTravels> {
 
         body: getBody(),
 
-              bottomNavigationBar: Container( //navigation bar
+        bottomNavigationBar: Container( //navigation bar
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30),

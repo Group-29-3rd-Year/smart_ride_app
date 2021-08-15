@@ -34,7 +34,7 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
   }
 
     
-  Future<Set<Marker>> fetchLocation() async {
+  Future<Set<Marker>> fetchLocation()  async {
     setState(() {
       isLoading = true;
     });
@@ -124,18 +124,18 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
                 child: FutureBuilder(
                   future: fetchLocation(),
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    return GoogleMap(
-                      mapType: MapType.normal,
-                      initialCameraPosition: CameraPosition(target: _initialcameraposition),
-                      onMapCreated: _onMapCreated,
-                      myLocationEnabled: true,
-                      scrollGesturesEnabled: true,
-                      zoomGesturesEnabled: true,
-                      tiltGesturesEnabled: true,
-                      myLocationButtonEnabled: false,
-                      mapToolbarEnabled: false,
-                      markers: snapshot.data,
-                    );
+                      return GoogleMap(
+                        mapType: MapType.normal,
+                        initialCameraPosition: CameraPosition(target: _initialcameraposition),
+                        onMapCreated: _onMapCreated,
+                        myLocationEnabled: true,
+                        scrollGesturesEnabled: true,
+                        zoomGesturesEnabled: true,
+                        tiltGesturesEnabled: true,
+                        myLocationButtonEnabled: false,
+                        mapToolbarEnabled: false,
+                        markers: snapshot.data,
+                      );
                     },
                   ),
               
