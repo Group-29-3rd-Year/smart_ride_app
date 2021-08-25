@@ -23,7 +23,6 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-
   String email;
   String pass;
 
@@ -33,84 +32,55 @@ class _BodyState extends State<Body> {
   //   super.initState();
   //   this.login();
   //   this.getPID();
-    
+
   // }
 
-  Future login()async {
-
-    
+  Future login() async {
     var url = "http://192.168.43.199:5002/add/login";
-    http.Response response = await http.post(
-      Uri.parse(url),
-      headers: <String,String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String,String>{
+    http.Response response = await http.post(Uri.parse(url),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
           "email": email,
           "password": pass,
-        })
-    );
+        }));
 
     var data = response.body;
-    
-    if (data== '"Success"') {
+
+    if (data != '"Error"') {
       Fluttertoast.showToast(
-        msg: "Login Successfully",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.green,
-        textColor: Colors.white,
-        fontSize: 16.0
-      );
+          msg: "Login Successfully",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0);
 
       Navigator.push(
-        context, 
-          MaterialPageRoute(
-            builder: (context) {
-              return StartScreen();
-            },
-          ),
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return StartScreen();
+          },
+        ),
       );
 
+      print(data);
+      await FlutterSession().set('passengerID', data);
     }
-    if(data=='"Error"') {
-        Fluttertoast.showToast(
-        msg: "Username or Password is Incorrect",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0
-      );
+    if (data == '"Error"') {
+      Fluttertoast.showToast(
+          msg: "Username or Password is Incorrect",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
     }
-
   }
-
-
-  Future getPID() async {
-        
-        print(email);
-
-        var url = "http://192.168.43.199:5002/add/getpid";
-            http.Response response = await http.post(
-              Uri.parse(url),
-              headers: <String,String>{
-                'Content-Type': 'application/json; charset=UTF-8',
-              },
-              body: jsonEncode(<String,String>{
-                  "email": email,
-              })
-            );
-
-        var data = jsonDecode(response.body);
-        print(data['pid']);
-        await FlutterSession().set('passengerID', data['pid']);
-        
-  }
-
-  
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -125,56 +95,54 @@ class _BodyState extends State<Body> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-        
-                SizedBox(height: size.height*0.05,),
-                Text(
-                  "LOGIN", 
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30
-                  ),
+                SizedBox(
+                  height: size.height * 0.05,
                 ),
-        
-                SizedBox(height: size.height * 0.03,),
+                Text(
+                  "LOGIN",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                ),
+                SizedBox(
+                  height: size.height * 0.03,
+                ),
                 SvgPicture.asset(
                   "assets/icons/login.svg",
-                  height: size.height*0.43,  
+                  height: size.height * 0.43,
                 ),
-        
-                SizedBox(height: size.height * 0.03,),
+                SizedBox(
+                  height: size.height * 0.03,
+                ),
                 RoundedInputField(
                   hintText: "Your Email",
                   onChanged: (value) {
-                    setState((){
+                    setState(() {
                       email = value;
                     });
                   },
                   icon: Icons.email,
                 ),
-        
                 RoundedPasswordField(
                   onChanged: (value) {
-                    setState((){
+                    setState(() {
                       pass = value;
                     });
                   },
                 ),
-        
                 RoundedButton(
                   text: "LOGIN",
                   press: () {
                     if (_formKey.currentState.validate()) {
                       login();
-                      getPID();
-                    }                    
+                    }
                   },
                 ),
-        
-                SizedBox(height: size.height * 0.03,),
+                SizedBox(
+                  height: size.height * 0.03,
+                ),
                 AlreadyHaveAnAccountCheck(
                   press: () {
                     Navigator.push(
-                      context, 
+                      context,
                       MaterialPageRoute(
                         builder: (context) {
                           return SignUpScreen();
@@ -183,8 +151,9 @@ class _BodyState extends State<Body> {
                     );
                   },
                 ),
-        
-                SizedBox(height: size.height*0.01,),
+                SizedBox(
+                  height: size.height * 0.01,
+                ),
               ],
             ),
           ),
@@ -193,4 +162,3 @@ class _BodyState extends State<Body> {
     );
   }
 }
-
