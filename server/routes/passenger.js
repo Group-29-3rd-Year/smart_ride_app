@@ -54,7 +54,7 @@ router.post("/login", async (req, res) => {
 
     if (user.rows.length === 0) {
       res.json("Error");
-    }
+    } 
 
     //3. check if incoming password is the same the db password
     const validPassword = await bcrypt.compare(
@@ -66,7 +66,7 @@ router.post("/login", async (req, res) => {
       res.json("Error");
     }
     else {
-      res.json("Success");
+      res.json(user.rows[0].pid);
     }
     // const userExist = await pool.query(
     //   "SELECT * FROM passenger WHERE email = $1 AND password = $2",

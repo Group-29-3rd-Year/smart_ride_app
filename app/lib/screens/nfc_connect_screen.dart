@@ -1,18 +1,18 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+//import 'package:flutter/services.dart';
 import 'package:smart_ride_app/constants.dart';
 import 'package:smart_ride_app/screens/available_bus_map_screen.dart';
 import 'package:smart_ride_app/screens/fare_rates_screen.dart';
 import 'package:smart_ride_app/screens/ongoing_map_screen.dart';
 import 'package:smart_ride_app/screens/past_travel_screen.dart';
-import 'package:smart_ride_app/screens/start_screen.dart';
+//import 'package:smart_ride_app/screens/start_screen.dart';
 import 'package:smart_ride_app/widgets/bottom_nav_item.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutter_nfc_reader/flutter_nfc_reader.dart';
-import 'package:smart_ride_app/components/rounded_button.dart';
-import 'package:screen_loader/screen_loader.dart';
+// import 'package:http/http.dart' as http;
+// import 'package:flutter_nfc_reader/flutter_nfc_reader.dart';
+// import 'package:smart_ride_app/components/rounded_button.dart';
+// import 'package:screen_loader/screen_loader.dart';
 
 
 class NFC_Connect extends StatefulWidget {
@@ -64,7 +64,7 @@ class _NFC_ConnectState extends State<NFC_Connect> {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+    //var size = MediaQuery.of(context).size;
     return Scaffold(
       // appBar: AppBar(
       //     backgroundColor: kPrimaryColor,
@@ -149,7 +149,7 @@ class _NFC_ConnectState extends State<NFC_Connect> {
   }
 
   Widget getBody() {
-    var size = MediaQuery.of(context).size;
+    //var size = MediaQuery.of(context).size;
     return(
       //Padding(
       //padding: const EdgeInsets.only(left: 50.0, top: 50.0),

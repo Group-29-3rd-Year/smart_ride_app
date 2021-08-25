@@ -20,6 +20,9 @@ app.use("/pasttravels", require('./routes/pastTravel'));
 //bus locations
 app.use("/buslocations", require('./routes/busLocations'));
 
+//ongoin map
+app.use("/ongoingmap", require('./routes/ongoingmap'));
+
 app.listen(5002, () => { 
     console.log("server is running on port 5002");
 });
