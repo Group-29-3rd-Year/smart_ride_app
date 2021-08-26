@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:flutter_session/flutter_session.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart';
@@ -32,8 +33,31 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
     super.initState();
     //this.getUserStartLocation();
     this.getCurrentStartLocation();
+    //this.getCurrentLocation();
     //this.setCustomMapPin();
+    this.updateUserCurrentBus(bus_id);
     polylinePoints = PolylinePoints();
+
+  }
+
+  //update user's current bus
+  Future updateUserCurrentBus(bus_id) async {
+    var passengerID = await FlutterSession().get("passengerID");
+    print(passengerID);
+    print(bus_id);
+
+    var url = "http://192.168.43.199:5002/ongoingmap/updateUserCurrentBus";
+    http.Response response = await http.post(Uri.parse(url),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          "bus_id": bus_id,
+          "passengerID": passengerID,
+        }));
+
+    var data = response.body;
+    print(data);
 
   }
 
@@ -111,20 +135,21 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
   }
 
   //user running location
-  LatLng userRunningLoc;
 
-  getCurrentLocation() async {
-    final geoposition = await Geolocator.getCurrentPosition(
-        desiredAccuracy: geo.LocationAccuracy.high);
+  LatLng userRunningLoc = LatLng(6.068891913835122, 80.19815440635196);
 
-    setState(() {
-      userRunningLoc = LatLng(geoposition.latitude, geoposition.longitude);
-    });
+  // getCurrentLocation() async {
+  //   final geoposition = await Geolocator.getCurrentPosition(
+  //       desiredAccuracy: geo.LocationAccuracy.high);
 
-    print(userRunningLoc);
-    print(userRunningLoc.latitude);
-    print(userRunningLoc.longitude);
-  }
+  //   setState(() {
+  //     userRunningLoc = LatLng(geoposition.latitude, geoposition.longitude);
+  //   });
+
+  //   print(userRunningLoc);
+  //   print(userRunningLoc.latitude);
+  //   print(userRunningLoc.longitude);
+  // }
 
 
   //create polylines

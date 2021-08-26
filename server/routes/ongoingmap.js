@@ -24,5 +24,27 @@ router.post("/getuserstart", async(req, res) => {
     }
 }); 
 
+router.post("/updateUserCurrentBus", async(req, res) => {
+
+    try {
+        
+        const {bus_id, passengerID} = req.body;
+
+        const updateP = await pool.query("UPDATE passenger SET active_bus = $1 WHERE pid = $2",
+            [ bus_id , passengerID]        
+        );
+
+        if(updateP) {
+            res.json("Updated");
+        }
+
+        
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server error");
+    }
+}); 
+
 
 module.exports = router;
