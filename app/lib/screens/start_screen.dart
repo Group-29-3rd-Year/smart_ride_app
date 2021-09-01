@@ -3,19 +3,29 @@ import 'package:smart_ride_app/components/rounded_button.dart';
 import 'package:smart_ride_app/constants.dart';
 import 'package:smart_ride_app/screens/available_bus_map_screen.dart';
 import 'package:smart_ride_app/screens/fare_rates_screen.dart';
+import 'package:smart_ride_app/screens/main_drawer.dart';
 import 'package:smart_ride_app/screens/nfc_connect_screen.dart';
 import 'package:smart_ride_app/screens/past_travel_screen.dart';
 import 'package:smart_ride_app/widgets/bottom_nav_item.dart';
 
-class StartScreen extends StatelessWidget {
+class StartScreen extends StatefulWidget {
   const StartScreen({ Key key }) : super(key: key);
 
+  @override
+  _StartScreenState createState() => _StartScreenState();
+}
+
+class _StartScreenState extends State<StartScreen> {
   @override
   Widget build(BuildContext context) {
 
     var size = MediaQuery.of(context).size;
 
-    return Scaffold(
+    return Scaffold( 
+      appBar: AppBar(
+        title: Text("Smart Ride"),
+      ),
+      drawer: MainDrawer(),
       body: Stack(
         children: <Widget>[
           SafeArea(
@@ -91,6 +101,21 @@ class StartScreen extends StatelessWidget {
                           },
                         ),
 
+                  ),
+
+                  Container(
+                    child: RoundedButton(
+                          text: "Pay",
+                          color: kPrimaryColor,
+                          press: () {
+                            Navigator.push(
+                              context, 
+                              MaterialPageRoute(
+                                builder: (context) {return NFC_Connect();}
+                              )
+                            );
+                          },
+                        ),
                   ),
 
                 ],
