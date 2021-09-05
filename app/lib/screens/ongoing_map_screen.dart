@@ -35,31 +35,30 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
     this.getCurrentStartLocation();
     //this.getCurrentLocation();
     //this.setCustomMapPin();
-    this.updateUserCurrentBus(bus_id);
-    polylinePoints = PolylinePoints();
+    //this.updateUserCurrentBus(bus_id);
 
   }
 
   //update user's current bus
-  Future updateUserCurrentBus(bus_id) async {
-    var passengerID = await FlutterSession().get("passengerID");
-    print(passengerID);
-    print(bus_id);
-
-    var url = "http://192.168.43.199:5002/ongoingmap/updateUserCurrentBus";
-    http.Response response = await http.post(Uri.parse(url),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(<String, String>{
-          "bus_id": bus_id,
-          "passengerID": passengerID,
-        }));
-
-    var data = response.body;
-    print(data);
-
-  }
+//  Future updateUserCurrentBus(bus_id) async {
+//    var passengerID = await FlutterSession().get("passengerID");
+//    print(passengerID);
+//    print(bus_id);
+//
+//    var url = "http://192.168.43.199:5002/ongoingmap/updateUserCurrentBus";
+//    http.Response response = await http.post(Uri.parse(url),
+//        headers: <String, String>{
+//          'Content-Type': 'application/json; charset=UTF-8',
+//        },
+//        body: jsonEncode(<String, String>{
+//          "bus_id": bus_id,
+//          "passengerID": passengerID,
+//        }));
+//
+//    var data = response.body;
+//    print(data);
+//
+//  }
 
   //get bus current location
   // Future getUserStartLocation() async {
@@ -112,8 +111,6 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
      
     });
 
-    setPolylines();
-    
   }
 
   
@@ -152,58 +149,6 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
   // }
 
 
-  //create polylines
-  Set<Polyline> _polylines = Set<Polyline>();
-  List<LatLng> polylineCoordinates = [];
-  PolylinePoints polylinePoints;
-
-  LatLng startLocation;
-  LatLng currentLocation;
-
-  void setInitialLocation() {
-    startLocation = LatLng(
-      userStart.latitude,
-      userStart.longitude
-    );
-
-    currentLocation = LatLng(
-      userRunningLoc.latitude,
-      userRunningLoc.longitude
-    );
-  }
-
-
-  void setPolylines() async {
-    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      "AIzaSyC6KymOCqvPCbN4zMeoWK87g1o78HhbLPE",
-      PointLatLng(
-        startLocation.latitude,
-        startLocation.longitude
-      ),
-      PointLatLng(
-        currentLocation.latitude,
-        currentLocation.longitude
-      )
-    );
-
-    if (result.status == 'OK') {
-      result.points.forEach((PointLatLng point) {
-        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
-      });
-
-      setState(() {
-        _polylines.add(
-          Polyline(
-            width: 10,
-            polylineId: PolylineId('polyLine'),
-            color: Color(0xFF08A5CB),
-            points: polylineCoordinates
-          )
-        );
-      });
-    }
-  }
-
   //set markers
   
   // first method custom icon
@@ -238,15 +183,6 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
         position: LatLng(userStart.latitude, userStart.longitude),
         infoWindow: InfoWindow(title: 'START'),
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRose),
-        //icon: BitmapDescriptor.defaultMarker
-        
-      ));
-
-      markers.add(Marker( //current running marker
-        markerId: MarkerId('CURRENT LOC'),
-        position: LatLng(userRunningLoc.latitude, userRunningLoc.longitude),
-        infoWindow: InfoWindow(title: 'CURRENT LOC'),
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
         //icon: BitmapDescriptor.defaultMarker
         
       ));
@@ -298,7 +234,6 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
         tiltGesturesEnabled: true,
         scrollGesturesEnabled: true,
         markers: getmarkers(),
-        polylines: _polylines,
       ),
 
       //my location button
