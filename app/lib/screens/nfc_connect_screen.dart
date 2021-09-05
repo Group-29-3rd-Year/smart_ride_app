@@ -1,6 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_session/flutter_session.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 //import 'package:flutter/services.dart';
 import 'package:smart_ride_app/constants.dart';
 import 'package:smart_ride_app/screens/available_bus_map_screen.dart';
@@ -13,6 +16,8 @@ import 'package:smart_ride_app/widgets/bottom_nav_item.dart';
 // import 'package:flutter_nfc_reader/flutter_nfc_reader.dart';
 // import 'package:smart_ride_app/components/rounded_button.dart';
 // import 'package:screen_loader/screen_loader.dart';
+import 'package:location/location.dart' as location;
+import 'package:geolocator/geolocator.dart' as geo;
 
 
 class NFC_Connect extends StatefulWidget {
@@ -45,7 +50,31 @@ class _NFC_ConnectState extends State<NFC_Connect> {
   void initState() {
     super.initState();
     startTime();
+    this.getCurrentStartLocation();
   }
+
+  location.Location _location = location.Location();
+
+  // get user start location
+
+  LatLng userStart;
+
+  getCurrentStartLocation() async {
+    final geoposition = await Geolocator.getCurrentPosition(
+        desiredAccuracy: geo.LocationAccuracy.high);
+
+    setState(() {
+      userStart = LatLng(geoposition.latitude, geoposition.longitude);
+    });
+
+    print(userStart);
+    print(userStart.latitude);
+    print(userStart.longitude);
+    // print(userStart.latitude);
+    // print(userStart.longitude);
+  }
+
+
 
   startTime() async {
     var duration = new Duration(seconds: 5);

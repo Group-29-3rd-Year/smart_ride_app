@@ -1,6 +1,7 @@
 //import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart' as location;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smart_ride_app/constants.dart';
@@ -11,6 +12,7 @@ import 'package:smart_ride_app/widgets/bottom_nav_item.dart';
 import 'package:http/http.dart' as http;
 // import 'package:geocoding/geocoding.dart' as geocoding;
 // import 'package:geocoder/geocoder.dart' as geocoder;
+import 'package:geolocator/geolocator.dart' as geo;
 import 'dart:convert';
 import 'dart:core';
 
@@ -29,6 +31,23 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
     // TODO: implement initState
     super.initState();
     this.fetchLocation();
+    this.getCurrentStartLocation();
+  }
+
+  // get user current location
+  LatLng userCurrent;
+
+  getCurrentStartLocation() async {
+    final geoposition = await Geolocator.getCurrentPosition(
+        desiredAccuracy: geo.LocationAccuracy.high);
+
+    setState(() {
+      userCurrent = LatLng(geoposition.latitude, geoposition.longitude);
+    });
+
+    print(userCurrent);
+    print(userCurrent.latitude);
+    print(userCurrent.longitude);
   }
 
   Future<Set<Marker>> fetchLocation() async {
@@ -36,7 +55,7 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
       isLoading = true;
     });
 
-    var url = "http://192.168.43.199:5002/buslocations";
+    var url = "http://192.168.43.136:5002/buslocations";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var items = List<Map<String, dynamic>>.from(json.decode(response.body));
@@ -53,10 +72,31 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
               markerId: MarkerId('Bus'),
               infoWindow: InfoWindow(title: items[i]['bus_number']),
               position: LatLng(x, y),
-              icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
+              icon: BitmapDescriptor.defaultMarkerWithHue(
+                  BitmapDescriptor.hueBlue),
             ),
           );
         }
+        locations.add(
+          Marker(
+            markerId: MarkerId('Me'),
+            infoWindow: InfoWindow(title: 'My Location'),
+            position: LatLng(userCurrent.latitude, userCurrent.longitude),
+            icon: BitmapDescriptor.defaultMarkerWithHue(
+                BitmapDescriptor.hueGreen),
+          ),
+        );
+      }
+      else {
+        locations.add(
+          Marker(
+            markerId: MarkerId('Me'),
+            infoWindow: InfoWindow(title: 'My Location'),
+            position: LatLng(userCurrent.latitude, userCurrent.longitude),
+            icon: BitmapDescriptor.defaultMarkerWithHue(
+                BitmapDescriptor.hueGreen),
+          ),
+        );
       }
 
       // for(var i=0 ; i< items.length ; i++) {
@@ -131,7 +171,7 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
                   myLocationButtonEnabled: false,
                   mapToolbarEnabled: false,
                   zoomControlsEnabled: false,
-                  markers: snapshot.data,
+                  markers: snapshot.hasData ?  snapshot.data : null,
                 );
               },
             ),
