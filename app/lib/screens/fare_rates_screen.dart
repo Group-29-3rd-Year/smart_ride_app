@@ -35,7 +35,7 @@ class _FareRatesState extends State<FareRates> {
     });
 
     var url =
-        "http://192.168.43.199:5002/fare"; //have to check with ip and localhost
+        "http://192.168.43.136:5000/passenger/fare"; //have to check with ip and localhost
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var items = json.decode(response.body);

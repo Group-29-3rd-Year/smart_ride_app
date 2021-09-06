@@ -31,7 +31,7 @@ class _PastTravelsState extends State<PastTravels> {
     var passengerID = await FlutterSession().get("passengerID");
     print(passengerID);
 
-    // var url = "http://192.168.43.199:5002/pasttravels";
+    // var url = "http://192.168.43.136:5000/passenger/pasttravels";
     //   http.Response response = await http.post(
     //     Uri.parse(url),
     //     headers: <String,String>{
@@ -58,7 +58,7 @@ class _PastTravelsState extends State<PastTravels> {
     //   }
 
     var url =
-        "http://192.168.43.199:5002/pasttravels"; //have to check with ip and localhost
+        "http://192.168.43.136:5000/passenger/pasttravels"; //have to check with ip and localhost
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var items = json.decode(response.body);

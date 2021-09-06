@@ -14,7 +14,6 @@ import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
 
 class Body extends StatefulWidget {
-
   @override
   _BodyState createState() => _BodyState();
 }
@@ -25,54 +24,49 @@ class _BodyState extends State<Body> {
   String email;
   String pass;
 
-  Future register()async {
-    var url = "http://192.168.43.199:5002/add/register";
-    http.Response response = await http.post(
-      Uri.parse(url),
-      headers: <String,String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String,String>{
+  Future register() async {
+    var url = "http://192.168.43.136:5000/passenger/add/register";
+    http.Response response = await http.post(Uri.parse(url),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
           "uname": name,
           "phone_number": phone,
           "email": email,
           "password": pass,
-        })
-    );
-    
+        }));
+
     var data = response.body;
-    
-    if (data== '"Success"') {
+
+    if (data == '"Success"') {
       Fluttertoast.showToast(
-        msg: "Registration Successfully",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.green,
-        textColor: Colors.white,
-        fontSize: 16.0
-      );
+          msg: "Registration Successfully",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0);
 
       Navigator.push(
-        context, 
-          MaterialPageRoute(
-            builder: (context) {
-              return LoginScreen();
-            },
-          ),
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return LoginScreen();
+          },
+        ),
       );
     } else {
-        Fluttertoast.showToast(
-        msg: "This User Already Exist",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0
-      );
+      Fluttertoast.showToast(
+          msg: "This User Already Exist",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
     }
-    
   }
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -88,78 +82,78 @@ class _BodyState extends State<Body> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-        
-                SizedBox(height: size.height*0.06,),
-                Text(
-                  "SIGN UP", 
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30
-                  ),
+                SizedBox(
+                  height: size.height * 0.06,
                 ),
-        
-                SizedBox(height: size.height*0.03,),
+                Text(
+                  "SIGN UP",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                ),
+
+                SizedBox(
+                  height: size.height * 0.03,
+                ),
                 SvgPicture.asset(
                   "assets/icons/signup.svg",
-                  height: size.height*0.4,
+                  height: size.height * 0.4,
                 ),
-        
+
                 RoundedInputField(
                   hintText: "Username",
                   onChanged: (value) {
-                    setState((){
+                    setState(() {
                       name = value;
                     });
                   },
                   icon: Icons.person,
                 ),
-        
+
                 RoundedInputField(
                   hintText: "Phone Number",
                   onChanged: (value) {
-                    setState((){
+                    setState(() {
                       phone = value;
                     });
                   },
                   icon: Icons.phone,
                 ),
-        
+
                 RoundedInputField(
                   hintText: "Email",
                   onChanged: (value) {
-                    setState((){
+                    setState(() {
                       email = value;
                     });
                   },
                   icon: Icons.email,
                 ),
-        
+
                 RoundedPasswordField(
                   onChanged: (value) {
-                    setState((){
+                    setState(() {
                       pass = value;
                     });
                   },
                 ),
-        
+
                 // RoundedInputField(
                 //   hintText: "Card Number",
                 //   onChanged: (value) {},
                 //   icon: Icons.credit_card,
                 // ),
-        
+
                 // RoundedInputField(
                 //   hintText: "Expiry Date",
                 //   onChanged: (value) {},
                 //   icon: Icons.calendar_today,
                 // ),
-        
+
                 // RoundedInputField(
                 //   hintText: "CVV",
                 //   onChanged: (value) {},
                 //   icon: Icons.credit_card,
                 // ),
-        
+
                 RoundedButton(
                   text: "SIGN UP",
                   press: () {
@@ -168,13 +162,15 @@ class _BodyState extends State<Body> {
                     }
                   },
                 ),
-        
-                SizedBox(height: size.height*0.03,),
+
+                SizedBox(
+                  height: size.height * 0.03,
+                ),
                 AlreadyHaveAnAccountCheck(
                   login: false,
                   press: () {
                     Navigator.push(
-                      context, 
+                      context,
                       MaterialPageRoute(
                         builder: (context) {
                           return LoginScreen();
@@ -183,9 +179,9 @@ class _BodyState extends State<Body> {
                     );
                   },
                 ),
-        
+
                 OrDivider(),
-        
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -203,9 +199,10 @@ class _BodyState extends State<Body> {
                     ),
                   ],
                 ),
-        
-                SizedBox(height: size.height*0.01,),
-                
+
+                SizedBox(
+                  height: size.height * 0.01,
+                ),
               ],
             ),
           ),
@@ -214,4 +211,3 @@ class _BodyState extends State<Body> {
     );
   }
 }
-
