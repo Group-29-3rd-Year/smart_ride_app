@@ -24,9 +24,8 @@ class OngoingMapScreen extends StatefulWidget {
 }
 
 class _OngoingMapScreenState extends State<OngoingMapScreen> {
-
   var bus_id = 1;
-  
+
   @override
   void initState() {
     // TODO: implement initState
@@ -36,7 +35,6 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
     //this.getCurrentLocation();
     //this.setCustomMapPin();
     //this.updateUserCurrentBus(bus_id);
-
   }
 
   //update user's current bus
@@ -45,7 +43,7 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
 //    print(passengerID);
 //    print(bus_id);
 //
-//    var url = "http://192.168.43.199:5002/ongoingmap/updateUserCurrentBus";
+//    var url = "http://192.168.43.199:5000/passenger/ongoingmap/updateUserCurrentBus";
 //    http.Response response = await http.post(Uri.parse(url),
 //        headers: <String, String>{
 //          'Content-Type': 'application/json; charset=UTF-8',
@@ -65,7 +63,7 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
   //   var bus_id = "1";
   //   print(bus_id);
 
-  //   var url = "http://192.168.43.199:5002/ongoingmap/getuserstart";
+  //   var url = "http://192.168.43.199:5000/passenger/ongoingmap/getuserstart";
   //   http.Response response = await http.post(Uri.parse(url),
   //       headers: <String, String>{
   //         'Content-Type': 'application/json; charset=UTF-8',
@@ -95,8 +93,6 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
   location.Location _location = location.Location();
   final Set<Marker> markers = new Set();
 
-  
-
   //set onmap create
   void _onMapCreated(GoogleMapController _cntlr) {
     _controller = _cntlr;
@@ -108,15 +104,12 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
       );
       print(l.latitude);
       print(l.longitude);
-     
     });
-
   }
 
-  
   // get user start location
 
-  LatLng userStart;
+  static LatLng userStart;
 
   getCurrentStartLocation() async {
     final geoposition = await Geolocator.getCurrentPosition(
@@ -148,9 +141,8 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
   //   print(userRunningLoc.longitude);
   // }
 
-
   //set markers
-  
+
   // first method custom icon
   // BitmapDescriptor startLocationIcon;
 
@@ -178,21 +170,18 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
   Set<Marker> getmarkers() {
     print(userStart);
     setState(() {
-      markers.add(Marker( //start marker
+      markers.add(Marker(
+        //start marker
         markerId: MarkerId('START'),
         position: LatLng(userStart.latitude, userStart.longitude),
         infoWindow: InfoWindow(title: 'START'),
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRose),
         //icon: BitmapDescriptor.defaultMarker
-        
       ));
-      
     });
 
     return markers;
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -347,7 +336,7 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
 //     var bus_id = "1";
 //     print(bus_id);
 
-//     var url = "http://192.168.43.199:5002/ongoingmap/getuserstart";
+//     var url = "http://192.168.43.199:5000/passenger/ongoingmap/getuserstart";
 //     http.Response response = await http.post(Uri.parse(url),
 //         headers: <String, String>{
 //           'Content-Type': 'application/json; charset=UTF-8',

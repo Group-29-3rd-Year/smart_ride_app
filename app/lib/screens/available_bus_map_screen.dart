@@ -55,7 +55,7 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
       isLoading = true;
     });
 
-    var url = "http://192.168.43.136:5002/buslocations";
+    var url = "http://192.168.43.136:5000/passenger/buslocations";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var items = List<Map<String, dynamic>>.from(json.decode(response.body));
@@ -86,8 +86,7 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
                 BitmapDescriptor.hueGreen),
           ),
         );
-      }
-      else {
+      } else {
         locations.add(
           Marker(
             markerId: MarkerId('Me'),
@@ -171,7 +170,7 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
                   myLocationButtonEnabled: false,
                   mapToolbarEnabled: false,
                   zoomControlsEnabled: false,
-                  markers: snapshot.hasData ?  snapshot.data : null,
+                  markers: snapshot.hasData ? snapshot.data : null,
                 );
               },
             ),
