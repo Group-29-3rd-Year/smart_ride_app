@@ -8,6 +8,8 @@ import 'package:smart_ride_app/screens/nfc_connect_screen.dart';
 import 'package:smart_ride_app/screens/past_travel_screen.dart';
 import 'package:smart_ride_app/widgets/bottom_nav_item.dart';
 
+import 'nfc_connect_screen_two.dart';
+
 class StartScreen extends StatefulWidget {
   const StartScreen({ Key key }) : super(key: key);
 
@@ -16,6 +18,11 @@ class StartScreen extends StatefulWidget {
 }
 
 class _StartScreenState extends State<StartScreen> {
+
+  String date;
+  String cost;
+  String distance;
+
   @override
   Widget build(BuildContext context) {
 
@@ -26,103 +33,105 @@ class _StartScreenState extends State<StartScreen> {
         title: Text("Smart Ride"),
       ),
       drawer: MainDrawer(),
-      body: Stack(
-        children: <Widget>[
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: Column(
-                children: <Widget>[
-
-                  Container(
-                        margin: EdgeInsets.only(top:25, ),
-                        child: Text(
-                              "Smart Ride",
-                              style: Theme.of(context)
-                                      .textTheme
-                                      .headline6
-                                      .copyWith(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 40,
-                                      ),
+      body: SingleChildScrollView(
+        child: Stack(
+          children: <Widget>[
+            SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: Column(
+                  children: <Widget>[
+      
+                    Container(
+                          margin: EdgeInsets.only(top:25, ),
+                          child: Text(
+                                "Smart Ride",
+                                style: Theme.of(context)
+                                        .textTheme
+                                        .headline6
+                                        .copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 40,
+                                        ),
+                          ),
                         ),
-                      ),
-
-                  Container(
-                          margin: EdgeInsets.only(bottom: 30, left: 30, right: 30),
-                            height: size.height *0.50,
-                            width: size.width,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                alignment: Alignment.bottomLeft,
-                                image: AssetImage("assets/images/image.png"),
-                                fit: BoxFit.fill,
-                              )
-                            ),
-                  ),
-
-                  Container( //start button
-                        margin: EdgeInsets.only(top: 5),
-                        //padding: EdgeInsets.only(top: 0, bottom: 0, left: 30, right: 30),
-                        // decoration: BoxDecoration(
-                        //   color: Colors.blue,
-                        //   borderRadius: BorderRadius.circular(20),
-                          
-                        // ),
-
-                        // child: TextButton(
-                          
-                        //   style: TextButton.styleFrom(
-                        //     shape: RoundedRectangleBorder(
-                        //       borderRadius: BorderRadius.circular(20),
-                        //       side: BorderSide(color: Colors.blue)
-                        //     ),
-                        //     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 40),
-                        //     primary: Colors.white,
-                        //     textStyle: const TextStyle(
-                        //       fontSize: 30,
-                        //       fontWeight: FontWeight.bold,
-                        //     ),
-                        //   ),
-                        //   onPressed: () {},
-                        //   child: const Text('Start Ride'),
-                        // ),
-
-                        child: RoundedButton(
-                          text: "START RIDE",
-                          color: kPrimaryColor,
-                          press: () {
-                            Navigator.push(
-                              context, 
-                              MaterialPageRoute(
-                                builder: (context) {return NFC_Connect();}
-                              )
-                            );
-                          },
-                        ),
-
-                  ),
-
-                  Container(
-                    child: RoundedButton(
-                          text: "Pay",
-                          color: kPrimaryColor,
-                          press: () {
-                            Navigator.push(
-                              context, 
-                              MaterialPageRoute(
-                                builder: (context) {return NFC_Connect();}
-                              )
-                            );
-                          },
-                        ),
-                  ),
-
-                ],
+      
+                    Container(
+                            margin: EdgeInsets.only(bottom: 30, left: 30, right: 30),
+                              height: size.height *0.50,
+                              width: size.width,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  alignment: Alignment.bottomLeft,
+                                  image: AssetImage("assets/images/image.png"),
+                                  fit: BoxFit.fill,
+                                )
+                              ),
+                    ),
+      
+                    Container( //start button
+                          margin: EdgeInsets.only(top: 5),
+                          //padding: EdgeInsets.only(top: 0, bottom: 0, left: 30, right: 30),
+                          // decoration: BoxDecoration(
+                          //   color: Colors.blue,
+                          //   borderRadius: BorderRadius.circular(20),
+                            
+                          // ),
+      
+                          // child: TextButton(
+                            
+                          //   style: TextButton.styleFrom(
+                          //     shape: RoundedRectangleBorder(
+                          //       borderRadius: BorderRadius.circular(20),
+                          //       side: BorderSide(color: Colors.blue)
+                          //     ),
+                          //     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 40),
+                          //     primary: Colors.white,
+                          //     textStyle: const TextStyle(
+                          //       fontSize: 30,
+                          //       fontWeight: FontWeight.bold,
+                          //     ),
+                          //   ),
+                          //   onPressed: () {},
+                          //   child: const Text('Start Ride'),
+                          // ),
+      
+                          child: RoundedButton(
+                            text: "START RIDE",
+                            color: kPrimaryColor,
+                            press: () {
+                              Navigator.push(
+                                context, 
+                                MaterialPageRoute(
+                                  builder: (context) {return NFC_Connect();}
+                                )
+                              );
+                            },
+                          ),
+      
+                    ),
+      
+                    Container(
+                      child: RoundedButton(
+                            text: "Pay",
+                            color: kPrimaryColor,
+                            press: () {
+                              Navigator.push(
+                                context, 
+                                MaterialPageRoute(
+                                  builder: (context) {return NFC_Connect_Two();}
+                                )
+                              );
+                            },
+                          ),
+                    ),
+      
+                  ],
+                ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
 
       bottomNavigationBar: Container( //navigation bar

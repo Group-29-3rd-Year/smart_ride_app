@@ -36,7 +36,7 @@ class _BodyState extends State<Body> {
   // }
 
   Future login() async {
-    var url = "http://192.168.43.136:5000/passenger/add/login";
+    var url = "http://192.168.1.6:5000/passenger/add/login";
     http.Response response = await http.post(Uri.parse(url),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
