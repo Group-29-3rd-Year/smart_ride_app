@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:smart_ride_app/screens/manage_cards.dart';
 import 'package:square_in_app_payments/models.dart';
 import 'package:square_in_app_payments/in_app_payments.dart';
 
@@ -12,30 +11,31 @@ class MainDrawer extends StatefulWidget {
 
 class _MainDrawerState extends State<MainDrawer> {
 
-  // void _payWithCreditCard() {
+  void _payWithCreditCard() {
 
-  //   InAppPayments.setSquareApplicationId('sq0idp-E-xL46Rgkp0D18AA12ARnw');
-  //   InAppPayments.startCardEntryFlow(
-  //     onCardNonceRequestSuccess: _success, 
-  //     onCardEntryCancel: entryCancel,
-  //   );
+    InAppPayments.setSquareApplicationId('sq0idp-E-xL46Rgkp0D18AA12ARnw');
+    InAppPayments.startCardEntryFlow(
+      onCardNonceRequestSuccess: _success, 
+      onCardEntryCancel: entryCancel,
+    );
 
-  // }
-  // void _success(CardDetails cardDetails) {
+  }
 
-  //   InAppPayments.completeCardEntry(
-  //     onCardEntryComplete: _cardEntryComplete
-  //   );
+  void _success(CardDetails cardDetails) {
 
-  // }
-  // void  _cardEntryComplete() {
+    InAppPayments.completeCardEntry(
+      onCardEntryComplete: _cardEntryComplete
+    );
 
-  // }
-  // void entryCancel() {
+  }
 
-  //   print("Cancel");
+  void _cardEntryComplete() {
 
-  // }
+  }
+
+  void entryCancel() {
+    print("Cancel");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,16 +62,10 @@ class _MainDrawerState extends State<MainDrawer> {
 
             ListTile(
               leading: Icon(Icons.credit_card),
-              title: Text("Manage Credit Card", style: TextStyle(color: Colors.purple),),
+              title: Text("Add Credit Card", style: TextStyle(color: Colors.purple),),
               hoverColor: Colors.purple[50], 
               contentPadding: EdgeInsets.only(left: 50),
-              // onTap: () {_payWithCreditCard();},
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ManageCards()),
-                );
-              },
+              onTap: () {_payWithCreditCard();},
             ),
 
             ListTile(
