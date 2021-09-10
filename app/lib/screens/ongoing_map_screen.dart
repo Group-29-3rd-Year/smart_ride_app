@@ -25,6 +25,16 @@ class OngoingMapScreen extends StatefulWidget {
 
 class _OngoingMapScreenState extends State<OngoingMapScreen> {
   var bus_id = 1;
+  bool isMapVisible = false;
+
+  double _originLatitude = 6.066709966979517;
+  double _originLongitude = 80.19812604723353;
+  double _destLatitude = 6.063610041380509;
+  double _destLongitude = 80.21544409936766;
+  Map<MarkerId, Marker> markers = {};
+
+  PolylinePoints polylinePoints = PolylinePoints();
+  Map<PolylineId, Polyline> polylines = {};
 
   @override
   void initState() {
@@ -35,6 +45,22 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
     //this.getCurrentLocation();
     //this.setCustomMapPin();
     //this.updateUserCurrentBus(bus_id);
+
+    _addMarker(
+      LatLng(_originLatitude, _originLongitude),
+      "origin",
+      BitmapDescriptor.defaultMarkerWithHue(90),
+    );
+
+    // Add destination marker
+    _addMarker(
+      LatLng(_destLatitude, _destLongitude),
+      "destination",
+      BitmapDescriptor.defaultMarker,
+    );
+
+    _getPolyline();
+
   }
 
   //update user's current bus
@@ -43,7 +69,7 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
 //    print(passengerID);
 //    print(bus_id);
 //
-//    var url = "http://192.168.43.199:5000/passenger/ongoingmap/updateUserCurrentBus";
+//    var url = "http://192.168.43.136:5000/passenger/ongoingmap/updateUserCurrentBus";
 //    http.Response response = await http.post(Uri.parse(url),
 //        headers: <String, String>{
 //          'Content-Type': 'application/json; charset=UTF-8',
@@ -57,32 +83,7 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
 //    print(data);
 //
 //  }
-
-  //get bus current location
-  // Future getUserStartLocation() async {
-  //   var bus_id = "1";
-  //   print(bus_id);
-
-  //   var url = "http://192.168.43.199:5000/passenger/ongoingmap/getuserstart";
-  //   http.Response response = await http.post(Uri.parse(url),
-  //       headers: <String, String>{
-  //         'Content-Type': 'application/json; charset=UTF-8',
-  //       },
-  //       body: jsonEncode(<String, String>{
-  //         "bus_id": bus_id,
-  //       }));
-
-  //   var data = response.body;
-  //   var x = double.parse(data['latitude']);
-  //   var y = double.parse(data[1]);
-  //   print(x);
-  //   print(y);
-
-  //   setState(() {
-  //     userStart = LatLng(x, y);
-  //   });
-
-  // }
+  
 
   // set map initial posision
   static const _initialCameraPosition = CameraPosition(
@@ -91,7 +92,7 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
 
   GoogleMapController _controller;
   location.Location _location = location.Location();
-  final Set<Marker> markers = new Set();
+  //final Set<Marker> markers = new Set();
 
   //set onmap create
   void _onMapCreated(GoogleMapController _cntlr) {
@@ -105,13 +106,18 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
       print(l.latitude);
       print(l.longitude);
     });
+
+    Future.delayed(
+        const Duration(milliseconds: 550),
+            () => setState(() {isMapVisible = true;})
+    );
   }
 
-  // get user start location
+// get user start location
 
   static LatLng userStart;
 
-  getCurrentStartLocation() async {
+  Future getCurrentStartLocation() async {
     final geoposition = await Geolocator.getCurrentPosition(
         desiredAccuracy: geo.LocationAccuracy.high);
 
@@ -120,13 +126,11 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
     });
 
     print(userStart);
-    print(userStart.latitude);
-    print(userStart.longitude);
   }
 
   //user running location
 
-  LatLng userRunningLoc = LatLng(6.068891913835122, 80.19815440635196);
+  //LatLng userRunningLoc = LatLng(6.068891913835122, 80.19815440635196);
 
   // getCurrentLocation() async {
   //   final geoposition = await Geolocator.getCurrentPosition(
@@ -141,47 +145,31 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
   //   print(userRunningLoc.longitude);
   // }
 
-  //set markers
 
-  // first method custom icon
-  // BitmapDescriptor startLocationIcon;
-
-  // setCustomMapPin() async {
-  //   startLocationIcon = await BitmapDescriptor.fromAssetImage(
-  //       ImageConfiguration(),
-  //       'assets/images/start_map_marker.png');
-  // }
-
-  // second method custom icon
-  // BitmapDescriptor customIcon;
-
-  // createMarker(context) {
-  //   if (customIcon == null) {
-  //     ImageConfiguration configuration = createLocalImageConfiguration(context);
-  //     BitmapDescriptor.fromAssetImage(configuration, "assets/images/start_map_marker.png")
-  //         .then((icon) {
-  //       setState(() {
-  //         customIcon = icon;
-  //       });
-  //     });
-  //   }
-  // }
-
-  Set<Marker> getmarkers() {
-    print(userStart);
-    setState(() {
-      markers.add(Marker(
-        //start marker
-        markerId: MarkerId('START'),
-        position: LatLng(userStart.latitude, userStart.longitude),
-        infoWindow: InfoWindow(title: 'START'),
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRose),
-        //icon: BitmapDescriptor.defaultMarker
-      ));
-    });
-
-    return markers;
-  }
+//  Set<Marker> getmarkers() {
+//    print(userStart);
+//    setState(() {
+//      markers.add(Marker(
+//        //start marker
+//        markerId: MarkerId('START'),
+//        position: LatLng(userStart.latitude, userStart.longitude),
+//        infoWindow: InfoWindow(title: 'START'),
+//        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRose),
+//        //icon: BitmapDescriptor.defaultMarker
+//      ));
+//
+//      markers.add(Marker(
+//        //dest marker
+//        markerId: MarkerId('CURRENT'),
+//        position: LatLng(),
+//        infoWindow: InfoWindow(title: 'CURRENT'),
+//        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+//        //icon: BitmapDescriptor.defaultMarker
+//      ));
+//    });
+//
+//    return markers;
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -211,19 +199,44 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
       ),
 
       //body map
-      body: GoogleMap(
-        mapType: MapType.normal,
-        initialCameraPosition: _initialCameraPosition,
-        onMapCreated: _onMapCreated,
-        myLocationButtonEnabled: false,
-        zoomControlsEnabled: false,
-        myLocationEnabled: true,
-        zoomGesturesEnabled: true,
-        mapToolbarEnabled: false,
-        tiltGesturesEnabled: true,
-        scrollGesturesEnabled: true,
-        markers: getmarkers(),
-      ),
+      body:
+//      GoogleMap(   //old code
+//        mapType: MapType.normal,
+//        initialCameraPosition: _initialCameraPosition,
+//        onMapCreated: _onMapCreated,
+//        myLocationButtonEnabled: false,
+//        zoomControlsEnabled: false,
+//        myLocationEnabled: true,
+//        zoomGesturesEnabled: true,
+//        mapToolbarEnabled: false,
+//        tiltGesturesEnabled: true,
+//        scrollGesturesEnabled: true,
+//        polylines: Set<Polyline>.of(polylines.values),
+//        markers: Set<Marker>.of(markers.values),
+//
+//      ),
+
+        AnimatedOpacity(
+            curve: Curves.fastOutSlowIn,
+            opacity: isMapVisible ? 1.0 : 0,
+            duration: Duration(milliseconds: 600),
+            child: GoogleMap(
+              mapType: MapType.normal,
+              initialCameraPosition: _initialCameraPosition,
+              onMapCreated: _onMapCreated,
+              myLocationButtonEnabled: false,
+              zoomControlsEnabled: false,
+              myLocationEnabled: true,
+              zoomGesturesEnabled: true,
+              mapToolbarEnabled: false,
+              tiltGesturesEnabled: true,
+              scrollGesturesEnabled: true,
+              polylines: Set<Polyline>.of(polylines.values),
+              markers: Set<Marker>.of(markers.values),
+              ),
+
+        ),
+
 
       //my location button
       floatingActionButton: FloatingActionButton(
@@ -279,6 +292,44 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
             ]),
       ),
     );
+  }
+
+  // This method will add markers to the map based on the LatLng position
+  _addMarker(LatLng position, String id, BitmapDescriptor descriptor) {
+    MarkerId markerId = MarkerId(id);
+    Marker marker =
+    Marker(markerId: markerId, icon: descriptor, position: position);
+    markers[markerId] = marker;
+  }
+
+  _addPolyLine(List<LatLng> polylineCoordinates) {
+    PolylineId id = PolylineId("poly");
+    Polyline polyline = Polyline(
+      polylineId: id,
+      points: polylineCoordinates,
+      width: 8,
+    );
+    polylines[id] = polyline;
+    setState(() {});
+  }
+
+  void _getPolyline() async {
+    List<LatLng> polylineCoordinates = [];
+
+    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+      "AIzaSyCIH0f4QB94H3wrCkJBebxcTIJ7pU7pdZM",
+      PointLatLng(_originLatitude, _originLongitude),
+      PointLatLng(_destLatitude, _destLongitude),
+      travelMode: TravelMode.driving,
+    );
+    if (result.points.isNotEmpty) {
+      result.points.forEach((PointLatLng point) {
+        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+      });
+    } else {
+      print(result.errorMessage);
+    }
+    _addPolyLine(polylineCoordinates);
   }
 }
 
@@ -336,7 +387,7 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
 //     var bus_id = "1";
 //     print(bus_id);
 
-//     var url = "http://192.168.43.199:5000/passenger/ongoingmap/getuserstart";
+//     var url = "http://192.168.43.136:5000/passenger/ongoingmap/getuserstart";
 //     http.Response response = await http.post(Uri.parse(url),
 //         headers: <String, String>{
 //           'Content-Type': 'application/json; charset=UTF-8',
