@@ -57,7 +57,7 @@ class _StartScreenState extends State<StartScreen> {
                         ),
       
                     Container(
-                            margin: EdgeInsets.only(bottom: 30, left: 30, right: 30),
+                            margin: EdgeInsets.only(left: 30, right: 30),
                               height: size.height *0.50,
                               width: size.width,
                               decoration: BoxDecoration(
@@ -70,7 +70,6 @@ class _StartScreenState extends State<StartScreen> {
                     ),
       
                     Container( //start button
-                          margin: EdgeInsets.only(top: 5),
                           //padding: EdgeInsets.only(top: 0, bottom: 0, left: 30, right: 30),
                           // decoration: BoxDecoration(
                           //   color: Colors.blue,

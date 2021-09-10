@@ -51,9 +51,6 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
   }
 
   Future<Set<Marker>> fetchLocation() async {
-    setState(() {
-      isLoading = true;
-    });
 
     var url = "http://192.168.43.136:5000/passenger/buslocations";
     var response = await http.get(Uri.parse(url));
@@ -86,7 +83,8 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
                 BitmapDescriptor.hueGreen),
           ),
         );
-      } else {
+      }
+      else {
         locations.add(
           Marker(
             markerId: MarkerId('Me'),
@@ -144,6 +142,10 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
         ),
       );
     });
+    Future.delayed(
+        const Duration(milliseconds: 550),
+            () => setState(() {isLoading = true;})
+    );
   }
 
   @override
@@ -158,19 +160,40 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
             child: FutureBuilder(
               future: fetchLocation(),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
-                return GoogleMap(
-                  mapType: MapType.normal,
-                  initialCameraPosition: _initialcameraposition,
-                  //CameraPosition(target: _initialcameraposition),
-                  onMapCreated: _onMapCreated,
-                  myLocationEnabled: true,
-                  scrollGesturesEnabled: true,
-                  zoomGesturesEnabled: true,
-                  tiltGesturesEnabled: true,
-                  myLocationButtonEnabled: false,
-                  mapToolbarEnabled: false,
-                  zoomControlsEnabled: false,
-                  markers: snapshot.hasData ? snapshot.data : null,
+                return (
+//                    GoogleMap(
+//                      mapType: MapType.normal,
+//                      initialCameraPosition: _initialcameraposition,
+//                      //CameraPosition(target: _initialcameraposition),
+//                      onMapCreated: _onMapCreated,
+//                      myLocationEnabled: true,
+//                      scrollGesturesEnabled: true,
+//                      zoomGesturesEnabled: true,
+//                      tiltGesturesEnabled: true,
+//                      myLocationButtonEnabled: false,
+//                      mapToolbarEnabled: false,
+//                      zoomControlsEnabled: false,
+//                      markers: snapshot.hasData ? snapshot.data : null,
+//                    )
+
+                    AnimatedOpacity(
+                        curve: Curves.fastOutSlowIn,
+                        opacity: isLoading ? 1.0 : 0,
+                        duration: Duration(milliseconds: 600),
+                          child: GoogleMap(
+                            mapType: MapType.normal,
+                            initialCameraPosition: _initialcameraposition,
+                            onMapCreated: _onMapCreated,
+                            myLocationEnabled: true,
+                            scrollGesturesEnabled: true,
+                            zoomGesturesEnabled: true,
+                            tiltGesturesEnabled: true,
+                            myLocationButtonEnabled: false,
+                            mapToolbarEnabled: false,
+                            zoomControlsEnabled: false,
+                            markers: snapshot.data ,
+                          )
+                    )
                 );
               },
             ),
