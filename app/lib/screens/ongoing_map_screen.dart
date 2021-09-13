@@ -42,6 +42,7 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
     super.initState();
     //this.getUserStartLocation();
     this.getCurrentStartLocation();
+    this.createSession();
     //this.getCurrentLocation();
     //this.setCustomMapPin();
     //this.updateUserCurrentBus(bus_id);
@@ -60,6 +61,12 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
     );
 
     _getPolyline();
+
+  }
+
+  Future createSession() async {
+
+    await FlutterSession().set('busID', bus_id);
 
   }
 

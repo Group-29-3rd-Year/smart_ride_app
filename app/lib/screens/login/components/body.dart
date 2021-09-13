@@ -26,15 +26,6 @@ class _BodyState extends State<Body> {
   String email;
   String pass;
 
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   this.login();
-  //   this.getPID();
-
-  // }
-
   Future login() async {
     var url = "http://192.168.1.6:5000/passenger/add/login";
     http.Response response = await http.post(Uri.parse(url),
@@ -67,8 +58,10 @@ class _BodyState extends State<Body> {
         ),
       );
 
-      print(data);
-      await FlutterSession().set('passengerID', data);
+      var data = json.decode(response.body);
+      await FlutterSession().set('passengerID', data['pid']);
+      await FlutterSession().set('passengerName', data['uname']);
+      await FlutterSession().set('passengerEmail', data['email']);
     }
     if (data == '"Error"') {
       Fluttertoast.showToast(
