@@ -1,4 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_session/flutter_session.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 import 'package:smart_ride_app/components/rounded_button.dart';
 import 'package:smart_ride_app/constants.dart';
 import 'package:smart_ride_app/screens/available_bus_map_screen.dart';
@@ -7,6 +12,7 @@ import 'package:smart_ride_app/screens/main_drawer.dart';
 import 'package:smart_ride_app/screens/nfc_connect_screen.dart';
 import 'package:smart_ride_app/screens/past_travel_screen.dart';
 import 'package:smart_ride_app/widgets/bottom_nav_item.dart';
+import 'package:http/http.dart' as http;
 
 import 'nfc_connect_screen_two.dart';
 
@@ -19,9 +25,50 @@ class StartScreen extends StatefulWidget {
 
 class _StartScreenState extends State<StartScreen> {
 
-  String date;
-  String cost;
-  String distance;
+  Future payCost() async {
+
+    var passengerID = await FlutterSession().get("passengerID");
+
+    var cost = 100;
+
+    var busID = await FlutterSession().get("busID");
+
+    final DateTime now = DateTime.now();
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    // final String date = formatter.format(now);
+
+    var url = "http://192.168.1.6:5000/passenger/add/enterPaymentDetails";
+    http.Response response = await http.post(Uri.parse(url),
+      headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, int>{
+        "passengerID": passengerID,
+        "cost": cost,
+        "busID": busID
+      })
+    );
+
+    var data = response.body;
+    if (data == '"Success"') {
+      Navigator.push(
+        context, 
+        MaterialPageRoute(
+          builder: (context) {return NFC_Connect_Two();}
+        )
+      );
+    } else {
+      Fluttertoast.showToast(
+        msg: "Payment is failed",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
+    }
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,12 +162,7 @@ class _StartScreenState extends State<StartScreen> {
                             text: "Pay",
                             color: kPrimaryColor,
                             press: () {
-                              Navigator.push(
-                                context, 
-                                MaterialPageRoute(
-                                  builder: (context) {return NFC_Connect_Two();}
-                                )
-                              );
+                              payCost();
                             },
                           ),
                     ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_session/flutter_session.dart';
 import 'package:square_in_app_payments/models.dart';
 import 'package:square_in_app_payments/in_app_payments.dart';
 
@@ -10,6 +11,15 @@ class MainDrawer extends StatefulWidget {
 }
 
 class _MainDrawerState extends State<MainDrawer> {
+
+  String passengerName; 
+  String passengerEmail; 
+
+  @override
+  void initState() {
+    super.initState();
+    this.getDet();
+  }
 
   void _payWithCreditCard() {
 
@@ -37,8 +47,21 @@ class _MainDrawerState extends State<MainDrawer> {
     print("Cancel");
   }
 
+  Future getDet() async {
+
+    var passName = await FlutterSession().get("passengerName");
+    var passEmail = await FlutterSession().get("passengerEmail"); 
+
+    setState(() {
+       passengerName = passName;
+       passengerEmail = passEmail;
+    });
+
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return Drawer(
         child: Column(
           children: [
@@ -53,8 +76,8 @@ class _MainDrawerState extends State<MainDrawer> {
                       radius: 80,
                       backgroundImage: AssetImage("assets/images/profile.jpg"),
                     ),
-                    Text("Nipun Silva", style: TextStyle(fontSize: 22, color: Colors.white),),
-                    Text("nipun@gmail.com", style: TextStyle(color: Colors.white),),
+                    Text('Hello, $passengerName', style: TextStyle(fontSize: 22, color: Colors.white),),
+                    Text("$passengerEmail", style: TextStyle(color: Colors.white),),
                   ],
                 ),
               ),

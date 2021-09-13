@@ -49,6 +49,7 @@ dependencies:
   screen_loader: ^2.0.1
   flutter_polyline_points: ^1.0.0
   google_maps_webservice: ^0.0.19
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

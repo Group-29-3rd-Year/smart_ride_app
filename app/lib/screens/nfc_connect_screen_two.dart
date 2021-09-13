@@ -1,19 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_session/flutter_session.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smart_ride_app/constants.dart';
+import 'package:smart_ride_app/screens/amount_pay_screen.dart';
 import 'package:smart_ride_app/screens/available_bus_map_screen.dart';
 import 'package:smart_ride_app/screens/fare_rates_screen.dart';
-import 'package:smart_ride_app/screens/ongoing_map_screen.dart';
 import 'package:smart_ride_app/screens/past_travel_screen.dart';
 import 'package:smart_ride_app/widgets/bottom_nav_item.dart';
-import 'package:location/location.dart' as location;
-import 'package:geolocator/geolocator.dart' as geo;
-
-import 'amount_pay_screen.dart';
 
 class NFC_Connect_Two extends StatefulWidget {
 
