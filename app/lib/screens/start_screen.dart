@@ -3,6 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_session/flutter_session.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geolocator/geolocator.dart' as geo;
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:smart_ride_app/components/rounded_button.dart';
 import 'package:smart_ride_app/constants.dart';
@@ -24,6 +27,13 @@ class StartScreen extends StatefulWidget {
 }
 
 class _StartScreenState extends State<StartScreen> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    this.getCurrentStartLocation();
+  }
 
   Future payCost() async {
 
@@ -67,6 +77,14 @@ class _StartScreenState extends State<StartScreen> {
         textColor: Colors.white,
         fontSize: 16.0);
     }
+
+  }
+
+  getCurrentStartLocation() async {
+    final geoposition = await Geolocator.getCurrentPosition(
+        desiredAccuracy: geo.LocationAccuracy.high);
+
+    print(geoposition);
 
   }
 

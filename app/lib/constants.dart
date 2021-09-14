@@ -9,3 +9,5 @@ const kPrimaryColor = Color(0xFF6F35A5);
 const kPrimaryLightColor = Color(0xFFF1E6FF);
 const KLightNavBarColor = Color(0xFFE6E6FA);
 const KScaffoldColor = Color(0xFFFFFAFA);
+const KMyLocation = Color(0xFFC9A0FF);
+const KPolyColor = Color(0xFFFF0800);
