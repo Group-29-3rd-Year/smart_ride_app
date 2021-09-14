@@ -57,8 +57,7 @@ class _PastTravelsState extends State<PastTravels> {
     //     });
     //   }
 
-    var url =
-        "http://192.168.43.136:5000/passenger/pasttravels"; //have to check with ip and localhost
+    var url = "http://192.168.43.136:5000/passenger/pasttravels"; //have to check with ip and localhost
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var items = json.decode(response.body);

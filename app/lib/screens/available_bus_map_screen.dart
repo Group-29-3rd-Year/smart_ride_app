@@ -45,9 +45,9 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
       userCurrent = LatLng(geoposition.latitude, geoposition.longitude);
     });
 
-    print(userCurrent);
-    print(userCurrent.latitude);
-    print(userCurrent.longitude);
+//    print(userCurrent);
+//    print(userCurrent.latitude);
+//    print(userCurrent.longitude);
   }
 
   Future<Set<Marker>> fetchLocation() async {
@@ -95,26 +95,6 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
           ),
         );
       }
-
-      // for(var i=0 ; i< items.length ; i++) {
-      //   print(i);
-      //     Marker setMarker = Marker(
-      //       markerId: MarkerId('Bus'),
-      //       infoWindow: InfoWindow(title: items[i]['bus_number']),
-      //       position: LatLng(items[i]['latitude'], items[i]['longitude']),
-      //       icon: BitmapDescriptor.defaultMarkerWithHue(
-      //         BitmapDescriptor.hueAzure,
-      //       )
-
-      //     );
-
-      //     setState(() {
-      //       locations.add(setMarker);
-      //       locations.add(setMarker);
-      //       locations.add(setMarker);
-      //       isLoading = false;
-      //     });
-      // }
     }
     return locations.toSet();
     // else {
@@ -161,21 +141,6 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
               future: fetchLocation(),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 return (
-//                    GoogleMap(
-//                      mapType: MapType.normal,
-//                      initialCameraPosition: _initialcameraposition,
-//                      //CameraPosition(target: _initialcameraposition),
-//                      onMapCreated: _onMapCreated,
-//                      myLocationEnabled: true,
-//                      scrollGesturesEnabled: true,
-//                      zoomGesturesEnabled: true,
-//                      tiltGesturesEnabled: true,
-//                      myLocationButtonEnabled: false,
-//                      mapToolbarEnabled: false,
-//                      zoomControlsEnabled: false,
-//                      markers: snapshot.hasData ? snapshot.data : null,
-//                    )
-
                     AnimatedOpacity(
                         curve: Curves.fastOutSlowIn,
                         opacity: isLoading ? 1.0 : 0,
@@ -197,20 +162,6 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
                 );
               },
             ),
-
-            // child: GoogleMap(
-            //     initialCameraPosition: _initialcameraposition,
-            //     mapType: MapType.normal,
-            //     onMapCreated: _onMapCreated,
-            //     myLocationEnabled: true,
-            //     scrollGesturesEnabled: true,
-            //     zoomGesturesEnabled: true,
-            //     tiltGesturesEnabled: true,
-            //     myLocationButtonEnabled: false,
-            //     mapToolbarEnabled: false,
-
-            //     markers: locations.map((e) => e).toSet(),
-            // ),
           ),
 
           //back button
@@ -246,12 +197,12 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
 
       // my location button
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: KMyLocation,
         foregroundColor: Colors.black,
         onPressed: () => _controller.animateCamera(
           CameraUpdate.newCameraPosition(_initialcameraposition),
         ),
-        child: const Icon(Icons.center_focus_strong),
+        child: const Icon(Icons.my_location),
       ),
 
       //navigation bar
