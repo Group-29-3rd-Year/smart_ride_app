@@ -44,9 +44,6 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
     double originLat = await FlutterSession().get("originLat") as double;
     double originLng = await FlutterSession().get("originLng") as double;
 
-    print("start lat : $originLat");
-    print("start lng : $originLng");
-
 
   }
 
