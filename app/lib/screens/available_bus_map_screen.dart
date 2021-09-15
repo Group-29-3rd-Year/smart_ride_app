@@ -32,6 +32,8 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
     super.initState();
     this.fetchLocation();
     this.getCurrentStartLocation();
+    this.setCustomMapPin();
+    this.setCustomBusMapPin();
   }
 
   // get user current location
@@ -50,7 +52,24 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
 //    print(userCurrent.longitude);
   }
 
+  BitmapDescriptor pinLocationIcon;
+  BitmapDescriptor busLocationIcon;
+
+  void setCustomMapPin() async {
+    pinLocationIcon = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(devicePixelRatio: 0.5),
+        'assets/images/usernew.png');
+  }
+
+  void setCustomBusMapPin() async {
+    busLocationIcon = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(devicePixelRatio: 2.0),
+        'assets/images/busicon.png');
+  }
+
+
   Future<Set<Marker>> fetchLocation() async {
+
 
     var url = "http://192.168.43.136:5000/passenger/buslocations";
     var response = await http.get(Uri.parse(url));
@@ -69,8 +88,9 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
               markerId: MarkerId('Bus'),
               infoWindow: InfoWindow(title: items[i]['bus_number']),
               position: LatLng(x, y),
-              icon: BitmapDescriptor.defaultMarkerWithHue(
-                  BitmapDescriptor.hueBlue),
+              icon: busLocationIcon,
+//              icon: BitmapDescriptor.defaultMarkerWithHue(
+//                  BitmapDescriptor.hueBlue),
             ),
           );
         }
@@ -79,8 +99,9 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
             markerId: MarkerId('Me'),
             infoWindow: InfoWindow(title: 'My Location'),
             position: LatLng(userCurrent.latitude, userCurrent.longitude),
-            icon: BitmapDescriptor.defaultMarkerWithHue(
-                BitmapDescriptor.hueGreen),
+            icon: pinLocationIcon,
+//            icon: BitmapDescriptor.defaultMarkerWithHue(
+//                BitmapDescriptor.hueGreen),
           ),
         );
       }
@@ -90,19 +111,18 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
             markerId: MarkerId('Me'),
             infoWindow: InfoWindow(title: 'My Location'),
             position: LatLng(userCurrent.latitude, userCurrent.longitude),
-            icon: BitmapDescriptor.defaultMarkerWithHue(
-                BitmapDescriptor.hueGreen),
+            icon: pinLocationIcon,
+//            icon: BitmapDescriptor.defaultMarkerWithHue(
+//                BitmapDescriptor.hueGreen),
           ),
         );
       }
     }
+    setState(() {
+      isLoading = true;
+    });
     return locations.toSet();
-    // else {
-    //   setState(() {
-    //     locations = [];
-    //     isLoading = false;
-    //   });
-    // }
+
   }
 
   static const _initialcameraposition = CameraPosition(
@@ -124,7 +144,6 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
     });
     Future.delayed(
         const Duration(milliseconds: 550),
-            () => setState(() {isLoading = true;})
     );
   }
 
@@ -143,7 +162,7 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
                 return (
                     AnimatedOpacity(
                         curve: Curves.fastOutSlowIn,
-                        opacity: isLoading ? 1.0 : 0,
+                        opacity: snapshot.hasData ? 1.0 : 0,
                         duration: Duration(milliseconds: 600),
                           child: GoogleMap(
                             mapType: MapType.normal,
@@ -156,7 +175,7 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
                             myLocationButtonEnabled: false,
                             mapToolbarEnabled: false,
                             zoomControlsEnabled: false,
-                            markers: snapshot.data ,
+                            markers: snapshot.data,
                           )
                     )
                 );

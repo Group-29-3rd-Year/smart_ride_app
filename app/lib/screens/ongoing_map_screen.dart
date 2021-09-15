@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:flutter_session/flutter_session.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -18,7 +17,6 @@ import 'package:http/http.dart' as http;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as location;
 import 'package:geolocator/geolocator.dart' as geo;
-import 'dart:math' show cos, sqrt, asin;
 import 'package:confirm_dialog/confirm_dialog.dart';
 
 class OngoingMapScreen extends StatefulWidget {
@@ -93,6 +91,13 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
     );
   }
 
+  BitmapDescriptor pinLocationIcon;
+
+  void setCustomMapPin() async {
+    pinLocationIcon = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(devicePixelRatio: 0.5),
+        'assets/images/usernew.png');
+  }
 
   Future getCurrentStartLocation() async {
     final geoposition = await Geolocator.getCurrentPosition(
@@ -109,7 +114,8 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
       _addMarker(
         LatLng(_currentLatitude, _currentLongitude),
         "My Location",
-        BitmapDescriptor.defaultMarkerWithHue(90),
+        pinLocationIcon,
+        //BitmapDescriptor.defaultMarkerWithHue(90),
         "My Location",
       );
     });
@@ -125,7 +131,7 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
     this.getCurrentStartLocation();
     this.updateUserCurrentBus();
     this.createSession();
-
+    this.setCustomMapPin();
 
   }
 
