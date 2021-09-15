@@ -47,84 +47,85 @@ class _Fare_DetailsState extends State<Fare_Details> {
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.only(top: 50.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
 
-                children: [
-                  Container(
-                    alignment: Alignment.topCenter,
-                    child: Text(
-                      "Thank You !",
-                      style: TextStyle(
-                          fontSize: 50.0,
-                          fontWeight: FontWeight.bold,
-                          color: KMyLocation,
+                  children: [
+                    Container(
+                      alignment: Alignment.topCenter,
+                      child: Text(
+                        "Thank You !",
+                        style: TextStyle(
+                            fontSize: 50.0,
+                            fontWeight: FontWeight.bold,
+                            color: KMyLocation,
+                        ),
+                      ),
+                      margin: EdgeInsets.only(bottom: 80),
+                    ),
+
+                    Container(
+                      alignment: Alignment.topCenter,
+                      child: Text(
+                        "Traveled Distance",
+                        style: TextStyle(
+                            fontSize: 40.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black
+                        ),
+                      ),
+                      margin: EdgeInsets.only(bottom: 20),
+                    ),
+
+                    Container(
+                      alignment: Alignment.topCenter,
+                      child: Text(
+                        "$travelDistance KM",
+                        style: TextStyle(
+                            fontSize: 40.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black
+                        ),
+                      ),
+                      margin: EdgeInsets.only(bottom: 20),
+                    ),
+
+                    Container(
+                      alignment: Alignment.topCenter,
+                      child: Text(
+                        "Travel Cost",
+                        style: TextStyle(
+                            fontSize: 40.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black
+                        ),
+                      ),
+                      margin: EdgeInsets.only(bottom: 20),
+                    ),
+
+                    Container(
+                      alignment: Alignment.topCenter,
+                      child: Text(
+                        "Rs. $travelPrice",
+                        style: TextStyle(
+                            fontSize: 40.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black
+                        ),
+                      ),
+                      margin: EdgeInsets.only(bottom: 30),
+                    ),
+
+                    Container(
+                      child: RoundedButton(
+                        text: "Pay",
+                        color: kPrimaryColor,
+                        press: () {},
                       ),
                     ),
-                    margin: EdgeInsets.only(bottom: 80),
-                  ),
-
-                  Container(
-                    alignment: Alignment.topCenter,
-                    child: Text(
-                      "Traveled Distance",
-                      style: TextStyle(
-                          fontSize: 40.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black
-                      ),
-                    ),
-                    margin: EdgeInsets.only(bottom: 20),
-                  ),
-
-                  Container(
-                    alignment: Alignment.topCenter,
-                    child: Text(
-                      "$travelDistance KM",
-                      style: TextStyle(
-                          fontSize: 40.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black
-                      ),
-                    ),
-                    margin: EdgeInsets.only(bottom: 20),
-                  ),
-
-                  Container(
-                    alignment: Alignment.topCenter,
-                    child: Text(
-                      "Travel Cost",
-                      style: TextStyle(
-                          fontSize: 40.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black
-                      ),
-                    ),
-                    margin: EdgeInsets.only(bottom: 20),
-                  ),
-
-                  Container(
-                    alignment: Alignment.topCenter,
-                    child: Text(
-                      "Rs. $travelPrice",
-                      style: TextStyle(
-                          fontSize: 40.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black
-                      ),
-                    ),
-                    margin: EdgeInsets.only(bottom: 30),
-                  ),
-
-                  Container(
-                    child: RoundedButton(
-                      text: "Pay",
-                      color: kPrimaryColor,
-                      press: () {},
-                    ),
-                  ),
-
-                ],
+                  ],
+                ),
               ),
             ),
           )
