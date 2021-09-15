@@ -138,6 +138,12 @@ class _FareDisCalculateState extends State<FareDisCalculate> {
     var data = response.body;
 
     print("Fare price : $data");
+    if(data == null) {
+      data = '0';
+    }
+    else {
+      data = data;
+    }
     //set fare price to session
     await FlutterSession().set('farePrice', data);
 
