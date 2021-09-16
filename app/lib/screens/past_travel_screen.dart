@@ -31,47 +31,47 @@ class _PastTravelsState extends State<PastTravels> {
     var passengerID = await FlutterSession().get("passengerID");
     print(passengerID);
 
-    // var url = "http://192.168.43.136:5000/passenger/pasttravels";
-    //   http.Response response = await http.post(
-    //     Uri.parse(url),
-    //     headers: <String,String>{
-    //         'Content-Type': 'application/json; charset=UTF-8',
-    //     },
-    //     body: jsonEncode(<String,String>{
-    //         "passengerID": passengerID,
-    //     })
-    //   );
+    var url = "http://192.168.43.136:5000/passenger/pasttravels";
+      http.Response response = await http.post(
+        Uri.parse(url),
+        headers: <String,String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String,int>{
+            "passengerID": passengerID,
+        })
+      );
 
-    //   if(response.statusCode == 200) {
-    //     var items = jsonDecode(response.body);
-    //     print(items);
-    //     setState(() {
-    //       pasttravels = items;
-    //       isLoading = false;
-    //     });
-    //   }else {
-    //     print("non");
-    //     setState(() {
-    //       pasttravels = [];
-    //       isLoading = false;
-    //     });
-    //   }
+      if(response.statusCode == 200) {
+        var items = jsonDecode(response.body);
+        print(items);
+        setState(() {
+          pasttravels = items;
+          isLoading = false;
+        });
+      }else {
+        print("non");
+        setState(() {
+          pasttravels = [];
+          isLoading = false;
+        });
+      }
 
-    var url = "http://192.168.43.136:5000/passenger/pasttravels"; //have to check with ip and localhost
-    var response = await http.get(Uri.parse(url));
-    if (response.statusCode == 200) {
-      var items = json.decode(response.body);
-      print(items);
-      setState(() {
-        pasttravels = items;
-        isLoading = false;
-      });
-    } else {
-      setState(() {
-        pasttravels = [];
-        isLoading = false;
-      });
-    }
+    // var url = "http://192.168.43.136:5000/passenger/pasttravels"; //have to check with ip and localhost
+    // var response = await http.get(Uri.parse(url));
+    // if (response.statusCode == 200) {
+    //   var items = json.decode(response.body);
+    //   print(items);
+    //   setState(() {
+    //     pasttravels = items;
+    //     isLoading = false;
+    //   });
+    // } else {
+    //   setState(() {
+    //     pasttravels = [];
+    //     isLoading = false;
+    //   });
+    // }
   }
 
   @override
@@ -100,6 +100,7 @@ class _PastTravelsState extends State<PastTravels> {
         automaticallyImplyLeading: false,
       ),
       body: getBody(),
+
       bottomNavigationBar: Container(
         //navigation bar
         decoration: BoxDecoration(
@@ -174,7 +175,7 @@ class _PastTravelsState extends State<PastTravels> {
         title: Row(
           children: <Widget>[
             Container(
-              width: 150,
+              width: 120,
               height: 80,
               //color: Colors.blue,
               child: Center(
@@ -183,7 +184,7 @@ class _PastTravelsState extends State<PastTravels> {
                   cost.toString(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      fontSize: 35,
+                      fontSize: 30,
                       fontWeight: FontWeight.w900,
                       color: Colors.green),
                 ),
