@@ -42,7 +42,7 @@ class _StartScreenState extends State<StartScreen> {
 
     return Scaffold( 
       appBar: AppBar(
-        title: Text("Smart Ride"),
+        //title: Text("Smart Ride"),
       ),
       drawer: MainDrawer(),
       body: SingleChildScrollView(
