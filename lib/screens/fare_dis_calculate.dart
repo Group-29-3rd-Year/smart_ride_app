@@ -126,7 +126,7 @@ class _FareDisCalculateState extends State<FareDisCalculate> {
     }
 
     //calculate fare according to distance
-    var url = "http://192.168.43.136:5000/passenger/ongoingmap/gettravelcost";
+    var url = "http://192.168.1.6:5000/passenger/ongoingmap/gettravelcost";
     http.Response response = await http.post(Uri.parse(url),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',

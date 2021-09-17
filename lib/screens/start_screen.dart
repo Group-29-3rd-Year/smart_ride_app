@@ -1,46 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geolocator/geolocator.dart' as geo;
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smart_ride_app/components/rounded_button.dart';
+import 'package:smart_ride_app/constants.dart';
 import 'package:smart_ride_app/screens/available_bus_map_screen.dart';
 import 'package:smart_ride_app/screens/fare_rates_screen.dart';
+import 'package:smart_ride_app/screens/main_drawer.dart';
+import 'package:smart_ride_app/screens/nfc_connect_screen.dart';
 import 'package:smart_ride_app/screens/past_travel_screen.dart';
-import 'package:smart_ride_app/screens/start_screen.dart';
 import 'package:smart_ride_app/widgets/bottom_nav_item.dart';
 
-import '../constants.dart';
-import 'main_drawer.dart';
-
-class AmountPayScreen extends StatefulWidget {
-  const AmountPayScreen({ Key key }) : super(key: key);
+class StartScreen extends StatefulWidget {
+  const StartScreen({ Key key }) : super(key: key);
 
   @override
-  _AmountPayScreenState createState() => _AmountPayScreenState();
+  _StartScreenState createState() => _StartScreenState();
 }
 
-class _AmountPayScreenState extends State<AmountPayScreen> {
+class _StartScreenState extends State<StartScreen> {
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    this.viewToats();
+    this.getCurrentStartLocation();
   }
 
-  Future viewToats() async {
+  getCurrentStartLocation() async {
+    final geoposition = await Geolocator.getCurrentPosition(
+        desiredAccuracy: geo.LocationAccuracy.high);
 
-    Fluttertoast.showToast(
-              msg: "Payment is completed",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.CENTER,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.green,
-              textColor: Colors.white,
-              fontSize: 16.0);
+    print(geoposition);
 
   }
 
   @override
   Widget build(BuildContext context) {
-    var size;
+
+    var size = MediaQuery.of(context).size;
+
     return Scaffold( 
       appBar: AppBar(
         title: Text("Smart Ride"),
@@ -69,23 +68,60 @@ class _AmountPayScreenState extends State<AmountPayScreen> {
                           ),
                         ),
       
+                    Container(
+                            margin: EdgeInsets.only(left: 30, right: 30),
+                              height: size.height *0.50,
+                              width: size.width,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  alignment: Alignment.bottomLeft,
+                                  image: AssetImage("assets/images/image.png"),
+                                  fit: BoxFit.fill,
+                                )
+                              ),
+                    ),
+      
                     Container( //start button
-                          margin: EdgeInsets.only(top: 5),
+                          //padding: EdgeInsets.only(top: 0, bottom: 0, left: 30, right: 30),
+                          // decoration: BoxDecoration(
+                          //   color: Colors.blue,
+                          //   borderRadius: BorderRadius.circular(20),
+                            
+                          // ),
+      
+                          // child: TextButton(
+                            
+                          //   style: TextButton.styleFrom(
+                          //     shape: RoundedRectangleBorder(
+                          //       borderRadius: BorderRadius.circular(20),
+                          //       side: BorderSide(color: Colors.blue)
+                          //     ),
+                          //     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 40),
+                          //     primary: Colors.white,
+                          //     textStyle: const TextStyle(
+                          //       fontSize: 30,
+                          //       fontWeight: FontWeight.bold,
+                          //     ),
+                          //   ),
+                          //   onPressed: () {},
+                          //   child: const Text('Start Ride'),
+                          // ),
       
                           child: RoundedButton(
-                            text: "Home Page",
+                            text: "START RIDE",
                             color: kPrimaryColor,
                             press: () {
                               Navigator.push(
                                 context, 
                                 MaterialPageRoute(
-                                  builder: (context) {return StartScreen();}
+                                  builder: (context) {return NFC_Connect();}
                                 )
                               );
                             },
                           ),
       
                     ),
+      
       
                   ],
                 ),
