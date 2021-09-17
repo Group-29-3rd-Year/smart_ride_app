@@ -51,7 +51,7 @@ class _OngoingMapScreenState extends State<OngoingMapScreen> {
     print(passengerID);
     print(bus_id);
 
-    var url = "http://192.168.43.136:5000/passenger/ongoingmap/updateUserCurrentBus";
+    var url = "http://192.168.1.6:5000/passenger/ongoingmap/updateUserCurrentBus";
     http.Response response = await http.post(Uri.parse(url),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',

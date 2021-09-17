@@ -71,7 +71,7 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
   Future<Set<Marker>> fetchLocation() async {
 
 
-    var url = "http://192.168.43.136:5000/passenger/buslocations";
+    var url = "http://192.168.1.6:5000/passenger/buslocations";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var items = List<Map<String, dynamic>>.from(json.decode(response.body));
