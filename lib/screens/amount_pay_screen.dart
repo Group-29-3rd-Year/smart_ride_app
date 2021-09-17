@@ -41,11 +41,7 @@ class _AmountPayScreenState extends State<AmountPayScreen> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Scaffold( 
-      appBar: AppBar(
-        title: Text("Smart Ride"),
-      ),
-      drawer: MainDrawer(),
+    return Scaffold(
       body: SingleChildScrollView(
         child: Stack(
           children: <Widget>[
@@ -56,7 +52,7 @@ class _AmountPayScreenState extends State<AmountPayScreen> {
                   children: <Widget>[
       
                     Container(
-                          margin: EdgeInsets.only(top:25, ),
+                          margin: EdgeInsets.only(top: 50, ),
                           child: Text(
                                 "Payment is Successfull.",
                                 style: Theme.of(context)
@@ -70,34 +66,36 @@ class _AmountPayScreenState extends State<AmountPayScreen> {
                         ),
 
                         Container(
-                          margin: EdgeInsets.only(left: 30, right: 30),
-                              height: size.height *0.50,
-                              width: size.width,
+                          margin: EdgeInsets.only(left: 30, right: 30, top: 60, bottom: 50),
+                              height: size.height *0.30,
+                              width: size.width*0.60,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   alignment: Alignment.bottomLeft,
-                                  image: AssetImage("assets/images/image.png"),
+                                  image: AssetImage("assets/images/confirm.png"),
                                   fit: BoxFit.fill,
                                 )
                               ),
                         ),
       
-                    Container( //start button
-                          margin: EdgeInsets.only(top: 5),
-      
-                          child: RoundedButton(
-                            text: "Go to Home Page",
-                            color: kPrimaryColor,
-                            press: () {
-                              Navigator.push(
-                                context, 
-                                MaterialPageRoute(
-                                  builder: (context) {return StartScreen();}
-                                )
-                              );
-                            },
-                          ),
-      
+                    Center(
+                      child: Container( //start button
+                            margin: EdgeInsets.only(top: 40, left: 10, right: 10),
+
+                            child: RoundedButton(
+                              text: "Back to Home",
+                              color: kPrimaryColor,
+                              press: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {return StartScreen();}
+                                  )
+                                );
+                              },
+                            ),
+
+                      ),
                     ),
       
                   ],

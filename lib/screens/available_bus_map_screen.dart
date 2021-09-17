@@ -38,22 +38,7 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
 
   // get user current location
   LatLng userCurrent;
-
-  getCurrentStartLocation() async {
-    final geoposition = await Geolocator.getCurrentPosition(
-        desiredAccuracy: geo.LocationAccuracy.high);
-
-    setState(() {
-      userCurrent = LatLng(geoposition.latitude, geoposition.longitude);
-    });
-
-//    print(userCurrent);
-//    print(userCurrent.latitude);
-//    print(userCurrent.longitude);
-  }
-
   BitmapDescriptor pinLocationIcon;
-  BitmapDescriptor busLocationIcon;
 
   void setCustomMapPin() async {
     pinLocationIcon = await BitmapDescriptor.fromAssetImage(
@@ -61,22 +46,46 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
         'assets/images/usernew.png');
   }
 
+  getCurrentStartLocation() async {
+    final geoposition = await Geolocator.getCurrentPosition(
+        desiredAccuracy: geo.LocationAccuracy.high);
+
+    setState(() {
+      userCurrent = LatLng(geoposition.latitude, geoposition.longitude);
+      locations.add(
+        Marker(
+          markerId: MarkerId('Me'),
+          infoWindow: InfoWindow(title: 'My Location'),
+          position: LatLng(userCurrent.latitude, userCurrent.longitude),
+          icon: pinLocationIcon,
+//            icon: BitmapDescriptor.defaultMarkerWithHue(
+//                BitmapDescriptor.hueGreen),
+        ),
+      );
+    });
+
+//    print(userCurrent);
+//    print(userCurrent.latitude);
+//    print(userCurrent.longitude);
+  }
+
+
+  BitmapDescriptor busLocationIcon;
+
   void setCustomBusMapPin() async {
     busLocationIcon = await BitmapDescriptor.fromAssetImage(
         ImageConfiguration(devicePixelRatio: 2.0),
         'assets/images/busicon.png');
   }
 
-
   Future<Set<Marker>> fetchLocation() async {
 
-
-    var url = "http://192.168.1.6:5000/passenger/buslocations";
+    var url = "http://192.168.1.102:5000/passenger/buslocations";
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var items = List<Map<String, dynamic>>.from(json.decode(response.body));
-      print(items);
-      print(items.length);
+//      print(items);
+//      print(items.length);
 
       if (items.length > 0) {
         for (int i = 0; i < items.length; i++) {
@@ -94,28 +103,6 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
             ),
           );
         }
-        locations.add(
-          Marker(
-            markerId: MarkerId('Me'),
-            infoWindow: InfoWindow(title: 'My Location'),
-            position: LatLng(userCurrent.latitude, userCurrent.longitude),
-            icon: pinLocationIcon,
-//            icon: BitmapDescriptor.defaultMarkerWithHue(
-//                BitmapDescriptor.hueGreen),
-          ),
-        );
-      }
-      else {
-        locations.add(
-          Marker(
-            markerId: MarkerId('Me'),
-            infoWindow: InfoWindow(title: 'My Location'),
-            position: LatLng(userCurrent.latitude, userCurrent.longitude),
-            icon: pinLocationIcon,
-//            icon: BitmapDescriptor.defaultMarkerWithHue(
-//                BitmapDescriptor.hueGreen),
-          ),
-        );
       }
     }
     setState(() {
