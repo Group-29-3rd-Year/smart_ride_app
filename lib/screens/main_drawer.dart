@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_session/flutter_session.dart';
+import 'package:smart_ride_app/screens/welcome/welcome_screen.dart';
 import 'package:square_in_app_payments/models.dart';
 import 'package:square_in_app_payments/in_app_payments.dart';
 
@@ -96,7 +97,16 @@ class _MainDrawerState extends State<MainDrawer> {
               title: Text("Log out", style: TextStyle(color: Colors.purple),),
               hoverColor: Colors.purple[50], 
               contentPadding: EdgeInsets.only(left: 50),
-              onTap: (){},
+              onTap: (){
+                Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return WelcomeScreen();
+                        },
+                      ),
+                    );
+              },
             ),
           ],
         ),

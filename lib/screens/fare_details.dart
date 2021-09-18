@@ -7,7 +7,6 @@ import 'package:smart_ride_app/constants.dart';
 import 'package:smart_ride_app/screens/nfc_connect_screen_two.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-// import 'package:intl/intl.dart';
 
 class Fare_Details extends StatefulWidget {
   @override
@@ -43,10 +42,6 @@ class _Fare_DetailsState extends State<Fare_Details> {
     var passengerID = await FlutterSession().get("passengerID");
 
     var busID = await FlutterSession().get("busID");
-
-    // final DateTime now = DateTime.now();
-    // final DateFormat formatter = DateFormat('yyyy-MM-dd');
-    // final String date = formatter.format(now);
 
     var url = "http://192.168.1.6:5000/passenger/add/enterPaymentDetails";
     http.Response response = await http.post(Uri.parse(url),

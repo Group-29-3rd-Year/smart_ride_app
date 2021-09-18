@@ -57,21 +57,7 @@ class _PastTravelsState extends State<PastTravels> {
         });
       }
 
-    // var url = "http://192.168.1.6:5000/passenger/pasttravels"; //have to check with ip and localhost
-    // var response = await http.get(Uri.parse(url));
-    // if (response.statusCode == 200) {
-    //   var items = json.decode(response.body);
-    //   print(items);
-    //   setState(() {
-    //     pasttravels = items;
-    //     isLoading = false;
-    //   });
-    // } else {
-    //   setState(() {
-    //     pasttravels = [];
-    //     isLoading = false;
-    //   });
-    // }
+    
   }
 
   @override
@@ -168,10 +154,6 @@ class _PastTravelsState extends State<PastTravels> {
         side: BorderSide(color: Colors.black),
       ),
       child: ListTile(
-        // shape: RoundedRectangleBorder(
-        //   borderRadius: BorderRadius.circular(20),
-        //   side: BorderSide(color: Colors.black),
-        // ),
         title: Row(
           children: <Widget>[
             Container(

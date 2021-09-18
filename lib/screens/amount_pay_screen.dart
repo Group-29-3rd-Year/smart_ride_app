@@ -8,7 +8,6 @@ import 'package:smart_ride_app/screens/start_screen.dart';
 import 'package:smart_ride_app/widgets/bottom_nav_item.dart';
 
 import '../constants.dart';
-import 'main_drawer.dart';
 
 class AmountPayScreen extends StatefulWidget {
   const AmountPayScreen({ Key key }) : super(key: key);

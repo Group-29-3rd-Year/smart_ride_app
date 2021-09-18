@@ -136,24 +136,6 @@ class _BodyState extends State<Body> {
                   },
                 ),
 
-                // RoundedInputField(
-                //   hintText: "Card Number",
-                //   onChanged: (value) {},
-                //   icon: Icons.credit_card,
-                // ),
-
-                // RoundedInputField(
-                //   hintText: "Expiry Date",
-                //   onChanged: (value) {},
-                //   icon: Icons.calendar_today,
-                // ),
-
-                // RoundedInputField(
-                //   hintText: "CVV",
-                //   onChanged: (value) {},
-                //   icon: Icons.credit_card,
-                // ),
-
                 RoundedButton(
                   text: "SIGN UP",
                   press: () {
