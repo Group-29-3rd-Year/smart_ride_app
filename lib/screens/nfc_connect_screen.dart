@@ -3,21 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_session/flutter_session.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:smart_ride_app/components/rounded_button.dart';
-//import 'package:flutter/services.dart';
 import 'package:smart_ride_app/constants.dart';
-import 'package:smart_ride_app/screens/available_bus_map_screen.dart';
-import 'package:smart_ride_app/screens/fare_rates_screen.dart';
 import 'package:smart_ride_app/screens/ongoing_map_screen.dart';
-import 'package:smart_ride_app/screens/past_travel_screen.dart';
-import 'package:smart_ride_app/screens/start_screen.dart';
-//import 'package:smart_ride_app/screens/start_screen.dart';
-import 'package:smart_ride_app/widgets/bottom_nav_item.dart';
-// import 'package:http/http.dart' as http;
-// import 'package:flutter_nfc_reader/flutter_nfc_reader.dart';
-// import 'package:smart_ride_app/components/rounded_button.dart';
-// import 'package:screen_loader/screen_loader.dart';
 import 'package:location/location.dart' as location;
 import 'package:geolocator/geolocator.dart' as geo;
 
@@ -29,26 +16,6 @@ class NFC_Connect extends StatefulWidget {
 
 class _NFC_ConnectState extends State<NFC_Connect> {
 
-  // Future<void> startNFC() async {
-  //   NfcData response;
-
-  //   setState(() {
-  //     var _nfcData = NfcData();
-  //     _nfcData.status = NFCStatus.reading;
-  //   });
-
-  //   print('NFC: Scan started');
-
-  //   try {
-  //     print('NFC: Scan readed NFC tag');
-  //     response = (await FlutterNfcReader.read) as NfcData;
-  //   } on PlatformException {
-  //     print('NFC: Scan stopped exception');
-  //   }
-  //   setState(() {
-  //     var _nfcData = response;
-  //   });
-  // }
   void initState() {
     super.initState();
     startTime();
@@ -98,61 +65,7 @@ class _NFC_ConnectState extends State<NFC_Connect> {
     //var size = MediaQuery.of(context).size;
     return Scaffold(
 
-      body: getBody(),
-
-        bottomNavigationBar: Container( //navigation bar
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-            ),
-            color: KLightNavBarColor,
-          ),
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          height: 65,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-
-              BottomNavItem(
-                title: "Past Travels",
-                botIcon: Icons.history,
-                press: () {
-                  Navigator.push(
-                    context, 
-                    MaterialPageRoute(
-                      builder: (context) {return PastTravels();}
-                    )
-                  );
-                },
-              ),
-              BottomNavItem(
-                title: "Available Busses",
-                botIcon: Icons.directions_bus,
-                press: () {
-                  Navigator.push(
-                    context, 
-                    MaterialPageRoute(
-                      builder: (context) {return AvailableBusMap();}
-                    )
-                  );
-                },
-              ),
-              BottomNavItem(
-                title: "Fare Rates",
-                botIcon: Icons.corporate_fare,
-                press: () {
-                  Navigator.push(
-                    context, 
-                    MaterialPageRoute(
-                      builder: (context) {return FareRates();}
-                    )
-                  );
-                },
-              ),
-            ]
-          ),
-      ),
+      body: getBody(),      
     );
   }
 
@@ -194,39 +107,6 @@ class _NFC_ConnectState extends State<NFC_Connect> {
                   ),
                 ),
 
-
-//               Padding(
-//                 padding: const EdgeInsets.only(top: 20.0),
-//                 child: TextButton(
-//                   style: TextButton.styleFrom(
-//                     primary: Colors.black,
-//                     onSurface: Colors.red,
-//                     shape: RoundedRectangleBorder(
-//                       borderRadius: BorderRadius.all(Radius.circular(2.0)),
-//
-//                     )
-//                   ),
-//                   onPressed: () {
-//                     Navigator.push(
-//                         context,
-//                         MaterialPageRoute(
-//                             builder: (context) {return StartScreen();}
-//                         )
-//                     );
-//                   },
-//                   child: Text(
-//                       'Cancel',
-//                        style: TextStyle(
-//                          fontSize: 30,
-//                          fontWeight: FontWeight.bold,
-//                          color: Colors.red,
-//                        ),
-//                   ),
-//                   // press: () {
-//                   //   FlutterNfcReader.read();
-//                   // },
-//                 ),
-//               ),
             ],
           )
         //),

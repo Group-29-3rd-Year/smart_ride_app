@@ -1,5 +1,3 @@
-//import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart' as location;
@@ -10,8 +8,6 @@ import 'package:smart_ride_app/screens/past_travel_screen.dart';
 import 'package:smart_ride_app/screens/start_screen.dart';
 import 'package:smart_ride_app/widgets/bottom_nav_item.dart';
 import 'package:http/http.dart' as http;
-// import 'package:geocoding/geocoding.dart' as geocoding;
-// import 'package:geocoder/geocoder.dart' as geocoder;
 import 'package:geolocator/geolocator.dart' as geo;
 import 'dart:convert';
 import 'dart:core';
@@ -58,15 +54,10 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
           infoWindow: InfoWindow(title: 'My Location'),
           position: LatLng(userCurrent.latitude, userCurrent.longitude),
           icon: pinLocationIcon,
-//            icon: BitmapDescriptor.defaultMarkerWithHue(
-//                BitmapDescriptor.hueGreen),
         ),
       );
     });
 
-//    print(userCurrent);
-//    print(userCurrent.latitude);
-//    print(userCurrent.longitude);
   }
 
 
@@ -84,8 +75,6 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var items = List<Map<String, dynamic>>.from(json.decode(response.body));
-//      print(items);
-//      print(items.length);
 
       if (items.length > 0) {
         for (int i = 0; i < items.length; i++) {
@@ -98,8 +87,6 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
               infoWindow: InfoWindow(title: items[i]['bus_number']),
               position: LatLng(x, y),
               icon: busLocationIcon,
-//              icon: BitmapDescriptor.defaultMarkerWithHue(
-//                  BitmapDescriptor.hueBlue),
             ),
           );
         }
@@ -116,7 +103,6 @@ class _AvailableBusMapState extends State<AvailableBusMap> {
     target: LatLng(6.0535, 80.2210),
   );
 
-  //LatLng _initialcameraposition = LatLng(6.0535, 80.2210);
   GoogleMapController _controller;
   location.Location _location = location.Location();
 

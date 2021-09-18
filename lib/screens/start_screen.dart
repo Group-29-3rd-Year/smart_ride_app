@@ -82,30 +82,6 @@ class _StartScreenState extends State<StartScreen> {
                     ),
       
                     Container( //start button
-                          //padding: EdgeInsets.only(top: 0, bottom: 0, left: 30, right: 30),
-                          // decoration: BoxDecoration(
-                          //   color: Colors.blue,
-                          //   borderRadius: BorderRadius.circular(20),
-                            
-                          // ),
-      
-                          // child: TextButton(
-                            
-                          //   style: TextButton.styleFrom(
-                          //     shape: RoundedRectangleBorder(
-                          //       borderRadius: BorderRadius.circular(20),
-                          //       side: BorderSide(color: Colors.blue)
-                          //     ),
-                          //     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 40),
-                          //     primary: Colors.white,
-                          //     textStyle: const TextStyle(
-                          //       fontSize: 30,
-                          //       fontWeight: FontWeight.bold,
-                          //     ),
-                          //   ),
-                          //   onPressed: () {},
-                          //   child: const Text('Start Ride'),
-                          // ),
       
                           child: RoundedButton(
                             text: "START RIDE",
